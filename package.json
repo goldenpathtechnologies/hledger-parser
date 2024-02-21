@@ -1,11 +1,29 @@
 {
-  "name": "@jones.tristand/hledger-parser",
-  "version": "0.3.0",
-  "description": "A parser for ledger/hledger journal files based on Chevrotain",
+  "name": "hledger-parser",
+  "version": "1.0.0",
+  "description": "A parser for hledger journal files based on Chevrotain",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
   "module": "build/module/index.js",
-  "repository": "https://github.com/jonestristand/hledger-parser",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/goldenpathtechnologies/hledger-parser.git"
+  },
+  "bugs": {
+    "url": "https://github.com/goldenpathtechnologies/hledger-parser/issues"
+  },
+  "contributors": [
+    {
+      "name": "Tristan Jones",
+      "email": "jones.tristand@gmail.com",
+      "url": "https://www.tdjones.ca"
+    },
+    {
+      "name": "Daryl G. Wright",
+      "email": "daryl@goldenpath.ca",
+      "url": "https://goldenpath.ca"
+    }
+  ],
   "license": "MIT",
   "keywords": [],
   "scripts": {
@@ -121,5 +139,44 @@
       "**/*.test.js",
       "**/__tests__"
     ]
+  },
+  "release": {
+    "branches": [
+      "main"
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      "@semantic-release/exec",
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "package.json",
+            "src/version.ts",
+            "CHANGELOG.md"
+          ],
+          "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+        }
+      ],
+      "@semantic-release/github"
+    ],
+    "preset": "conventionalcommits",
+    "parserOpts": {
+      "noteKeywords": [
+        "BREAKING CHANGE",
+        "BREAKING CHANGES",
+        "BREAKING"
+      ]
+    },
+    "writerOpts": {
+      "commitsSort": [
+        "subject",
+        "scope"
+      ]
+    },
+    "prepareCmd": "npx genversion --semi --double --es6 src/version.ts"
   }
 }

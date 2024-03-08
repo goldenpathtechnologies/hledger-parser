@@ -4,7 +4,7 @@
   "parserOptions": { "project": "./tsconfig.tests.json" },
   "env": { "es6": true },
   "ignorePatterns": ["node_modules", "build", "coverage", "hledger_cst.ts"],
-  "plugins": ["import", "@typescript-eslint", "eslint-comments"],
+  "plugins": ["import", "@typescript-eslint", "eslint-comments", "ava"],
   "extends": [
     "eslint:recommended",
     "plugin:eslint-comments/recommended",
@@ -15,7 +15,8 @@
     "plugin:import/recommended",
     "plugin:import/typescript",
     "prettier",
-    "prettier/@typescript-eslint"
+    "prettier/@typescript-eslint",
+    "plugin:ava/recommended"
   ],
   "globals": { "BigInt": true, "console": true, "WebAssembly": true },
   "rules": {

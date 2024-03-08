@@ -1,21 +1,28 @@
-name: Deploy Documentation Site to Pages
+name: Deploy Documentation Site
 
 on:
   push:
     branches:
       - main
+      - alpha
+      - beta
     paths-ignore:
       - .gitignore
       - .eslintignore
       - .eslintrc.json
-      - jest.config.ts
+      - .prettierignore
+      - .prettierrc
+      - .npmignore
+      - .cspell.json
+      - CHANGELOG.md
+      - CODE_OF_CONDUCT.md
+      - LICENSE
+      - README.md
       - tsconfig.json
-      - tsconfig.build.json
-      - package.json
-      - package-lock.json
-      - .github/workflows/release.yml
-      - "src/**"
-      - "test/**"
+      - tsconfig.module.json
+      - tsconfig.test.json
+      - tsconfig.tests.module.json
+      - knownissues.txt
     tags-ignore:
       - "**"
 
@@ -39,64 +46,41 @@ defaults:
     shell: bash
 
 jobs:
-  # Build job
-  build:
-    runs-on: ubuntu-latest
-    env:
-      working-directory: ./docs
-    defaults:
-      run:
-        working-directory: ${{ env.working-directory }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Set package manager
-        id: set-package-manager
-        run: |
-          echo "manager=npm" >> $GITHUB_OUTPUT
-          echo "command=install" >> $GITHUB_OUTPUT
-          echo "runner=npx --no-install" >> $GITHUB_OUTPUT
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: "lts/*"
-          cache: ${{ steps.set-package-manager.outputs.manager }}
-      - name: Setup Pages
-        id: pages
-        uses: actions/configure-pages@v3
-        with:
-          static_site_generator: next
-      - name: Restore cache
-        uses: actions/cache@v3
-        with:
-          path: |
-            ./docs/.next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
-          restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
-      - name: Install dependencies for rehype-gist
-        run: ${{ steps.set-package-manager.outputs.manager }} --prefix ./../ ${{ steps.set-package-manager.outputs.command }}
-      - name: Build local rehype-gist package
-        run: ${{ steps.set-package-manager.outputs.manager }} --prefix ./../ run build
-      - name: Install dependencies
-        run: ${{ steps.set-package-manager.outputs.manager }} ${{ steps.set-package-manager.outputs.command }}
-      - name: Build with Next.js
-        run: ${{ steps.set-package-manager.outputs.manager }} run build
-      - name: Set CNAME
-        run: echo "${{ steps.pages.outputs.host }}" > ./out/CNAME
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: ./docs/out
-
-  # Deployment job
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: build
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{secrets.GH_TOKEN}}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build documentation
+        run: npm run doc:html
+
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v4
+
+      - name: Set CNAME
+        run: echo "${{ steps.pages.outputs.host }}" > ./build/docs/CNAME
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./build/docs
+
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v4

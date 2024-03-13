@@ -8,7 +8,7 @@
 
 ![hledger-parser logo](https://github.com/goldenpathtechnologies/hledger-parser/blob/main/resources/logo-256.png?raw=true)
 
-A parser for hledger journal files based on Chevrotain
+A parser for hledger journal files based on Chevrotain.
 
 ## Grammar
 
@@ -63,6 +63,12 @@ look at the [contributing guide](https://github.com/goldenapathtechnologies/hled
 ## Project roadmap
 
 Please see the [roadmap](ROADMAP.md) for project status and a list of features to be implemented.
+
+## Note
+
+This is a detached fork of the original
+[`hledger-parser`](https://github.com/jonestristand/hledger-parser), and is in active development.
+Special thanks goes out to @jonestristand for all the initial work he put into this project!
 
 ## Show your support
 

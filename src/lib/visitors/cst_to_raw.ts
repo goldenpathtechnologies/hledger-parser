@@ -250,10 +250,11 @@ class HledgerToRawVisitor extends BaseCstVisitor {
 
     const tokens: { data: string; order: number }[] = [];
 
-    // We know from examining the parser that ctx.Number always exists
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     tokens.push({
+      // Note: We know from examining the parser that ctx.Number always exists
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       data: ctx.Number![0].image,
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       order: ctx.Number![0].startColumn ?? -1
     });
 

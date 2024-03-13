@@ -80,7 +80,7 @@
     "ava": "^3.12.1",
     "codecov": "^3.5.0",
     "commitizen": "^4.2.5",
-    "cspell": "^4.1.0",
+    "cspell": "^8.6.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.21.0",
     "eslint-config-prettier": "^6.11.0",

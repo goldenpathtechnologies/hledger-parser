@@ -1,3 +1,5 @@
+import test from 'ava';
+
 import { runLexerTests } from './utils';
 
 const tests = [
@@ -81,4 +83,4 @@ const tests = [
   }
 ];
 
-runLexerTests(tests);
+runLexerTests(test, tests);

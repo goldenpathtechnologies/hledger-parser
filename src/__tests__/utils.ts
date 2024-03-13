@@ -1,4 +1,3 @@
-import { ExecutionContext } from 'ava';
 import {
   createTokenInstance,
   CstElement,
@@ -13,6 +12,7 @@ import { notEmpty } from '../lib/type_utils';
 import CstToRawVisitor from '../lib/visitors/cst_to_raw';
 import * as Raw from '../lib/visitors/raw_types';
 
+import type { ExecutionContext } from 'ava';
 import type { CstNode } from 'chevrotain';
 
 export class MockLexer {

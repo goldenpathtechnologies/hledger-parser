@@ -1,3 +1,5 @@
+import test from 'ava';
+
 import { runLexerTests } from './utils';
 
 const tests = [
@@ -129,6 +131,6 @@ const tests = [
   }
 ];
 
-runLexerTests(tests);
+runLexerTests(test, tests);
 
 // TODO: Add tests with more date patterns: https://hledger.org/1.30/hledger.html#smart-dates

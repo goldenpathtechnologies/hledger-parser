@@ -49,6 +49,12 @@
     "sort-imports": [
       "error",
       { "ignoreDeclarationSort": true, "ignoreCase": true }
+    ],
+    "ava/no-ignored-test-files": [
+      "error",
+      {
+        "helpers": ["src/__tests__/**/utils.ts"]
+      }
     ]
   }
 }

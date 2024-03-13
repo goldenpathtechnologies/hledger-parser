@@ -1,7 +1,7 @@
-import test from 'ava';
-
 import HLedgerLexer from '../../lib/lexer';
 import * as utils from '../utils';
+
+import type { TestInterface } from 'ava';
 
 export interface LexerTest {
   pattern: string;
@@ -13,9 +13,9 @@ function tokenize(pattern: string) {
   return utils.simplifyLexResult(HLedgerLexer.tokenize(pattern));
 }
 
-export function runLexerTests(tests: LexerTest[]) {
+export function runLexerTests(avaTest: TestInterface, tests: LexerTest[]) {
   for (const { pattern, expected, title } of tests) {
-    test(title, (t) => {
+    avaTest(title, (t) => {
       const result = tokenize(pattern);
 
       t.deepEqual(result, expected, pattern);

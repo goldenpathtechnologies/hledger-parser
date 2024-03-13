@@ -1,3 +1,5 @@
+import test from 'ava';
+
 import { runLexerTests } from './utils';
 
 const getExpectedOutput = (expected: unknown[]): unknown[] => {
@@ -223,4 +225,4 @@ const tests = [
   },
 ];
 
-runLexerTests(tests);
+runLexerTests(test, tests);

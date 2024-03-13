@@ -1,3 +1,5 @@
+import test from 'ava';
+
 import { runLexerTests } from './utils';
 
 const tests = [
@@ -9,4 +11,4 @@ const tests = [
   // TODO: Write tests for each start of line directive.
 ];
 
-runLexerTests(tests);
+runLexerTests(test, tests);

@@ -19,7 +19,7 @@ test('returns a transaction object with an unmarked posting', (t) => {
     'posting',
     'should contain a transaction posting line'
   );
-  t.deepEqual(
+  t.is(
     ((result[0] as Raw.Transaction).value.contentLines[0] as Raw.Posting).value
       .status,
     'unmarked',
@@ -42,7 +42,7 @@ test('returns a transaction object with a pending posting', (t) => {
     'posting',
     'should contain a transaction posting line'
   );
-  t.deepEqual(
+  t.is(
     ((result[0] as Raw.Transaction).value.contentLines[0] as Raw.Posting).value
       .status,
     'pending',
@@ -65,7 +65,7 @@ test('returns a transaction object with a cleared posting', (t) => {
     'posting',
     'should contain a transaction posting line'
   );
-  t.deepEqual(
+  t.is(
     ((result[0] as Raw.Transaction).value.contentLines[0] as Raw.Posting).value
       .status,
     'cleared',

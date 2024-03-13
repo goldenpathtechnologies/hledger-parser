@@ -1,5 +1,6 @@
 # hledger-parser
 
+![Project Status](https://img.shields.io/badge/Project_Status-alpha-orange)
 ![NPM Version](https://img.shields.io/npm/v/hledger-parser)
 ![Version](https://img.shields.io/github/package-json/v/goldenpathtechnologies/hledger-parser)
 ![Release](https://img.shields.io/github/actions/workflow/status/goldenpathtechnologies/hledger-parser/release.yml)

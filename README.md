@@ -2,7 +2,6 @@
 
 ![Project Status](https://img.shields.io/badge/Project_Status-alpha-orange)
 ![NPM Version](https://img.shields.io/npm/v/hledger-parser)
-![Version](https://img.shields.io/github/package-json/v/goldenpathtechnologies/hledger-parser)
 ![Release](https://img.shields.io/github/actions/workflow/status/goldenpathtechnologies/hledger-parser/release.yml)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 ![LICENSE](https://img.shields.io/github/license/goldenpathtechnologies/hledger-parser)

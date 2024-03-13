@@ -1,6 +1,6 @@
 {
   "name": "hledger-parser",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A parser for hledger journal files based on Chevrotain",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
@@ -148,13 +148,11 @@
       "@semantic-release/release-notes-generator",
       "@semantic-release/changelog",
       "@semantic-release/npm",
-      "@semantic-release/exec",
       [
         "@semantic-release/git",
         {
           "assets": [
             "package.json",
-            "src/version.ts",
             "CHANGELOG.md"
           ],
           "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"

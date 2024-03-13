@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-      - alpha
-      - beta
     paths-ignore:
       - .gitignore
       - .eslintignore
@@ -88,5 +86,4 @@ jobs:
           -p @semantic-release/github \
           -p @semantic-release/changelog \
           -p conventional-changelog-conventionalcommits \
-          -p genversion \
           semantic-release

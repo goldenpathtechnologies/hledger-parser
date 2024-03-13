@@ -1,7 +1,12 @@
-- **What kind of change does this PR introduce?** (Bug fix, feature, docs update, ...)
+**What kind of change does this PR introduce?**
 
-- **What is the current behavior?** (You can also link to an open issue here)
+- [ ] Bug fix
+- [ ] Feature
+- [ ] Documentation
+- [ ] Other
 
-- **What is the new behavior (if this is a feature change)?**
+**What is the current behavior?** (You can also link to an open issue here)
 
-- **Other information**:
+**What is the new behavior?** (if this is a feature change)
+
+**Other information**:

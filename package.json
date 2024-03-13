@@ -141,14 +141,9 @@
   },
   "release": {
     "branches": [
-      "main",
       {
-        "name": "alpha",
-        "prerelease": true
-      },
-      {
-        "name": "beta",
-        "prerelease": true
+        "name": "main",
+        "prerelease": "alpha"
       }
     ],
     "plugins": [
@@ -183,7 +178,6 @@
         "subject",
         "scope"
       ]
-    },
-    "prepareCmd": "npx genversion --semi --double --es6 src/version.ts"
+    }
   }
 }

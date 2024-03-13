@@ -74,8 +74,9 @@ test('returns an inline comment object when inline comment contains text', (t) =
 
 test('returns an inline comment object when inline comment contains text, tags, and tag values', (t) => {
   const result = CstToRawVisitor.journal(
-    parseLedgerToCST(`account test  ; comment tag-name: tag-value, tag-name2:\n`)
-      .cstJournal.children
+    parseLedgerToCST(
+      `account test  ; comment tag-name: tag-value, tag-name2:\n`
+    ).cstJournal.children
   );
   t.is(result.length, 1, 'should modify an inline comment with text and a tag');
   t.truthy(

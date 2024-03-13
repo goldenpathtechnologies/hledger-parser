@@ -179,7 +179,8 @@ const tests = [
       'InlineCommentTagColon',
       'NEWLINE'
     ],
-    title: 'recognizes a tag name containing Unicode characters (Simplified Chinese)'
+    title:
+      'recognizes a tag name containing Unicode characters (Simplified Chinese)'
   },
   {
     pattern: 'account Assets  ; بطاقةشعار:\n',
@@ -246,7 +247,8 @@ const tests = [
       'InlineCommentTagColon',
       'NEWLINE'
     ],
-    title: 'recognizes comment text consisting of repeated colons preceding a tag'
+    title:
+      'recognizes comment text consisting of repeated colons preceding a tag'
   }
 ];
 

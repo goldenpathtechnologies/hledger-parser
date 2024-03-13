@@ -1,6 +1,9 @@
 import anyTest, { TestInterface } from 'ava';
 
-import { PostingStatusIndicator, TxnStatusIndicator } from '../../lib/lexer/tokens';
+import {
+  PostingStatusIndicator,
+  TxnStatusIndicator
+} from '../../lib/lexer/tokens';
 import HLedgerParser from '../../lib/parser';
 import { MockLexer, simplifyCst } from '../utils';
 

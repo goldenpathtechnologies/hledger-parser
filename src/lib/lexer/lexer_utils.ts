@@ -11,10 +11,7 @@ export const NewlineName = 'NEWLINE';
 export function matchOnlyAtStart(regex: RegExp) {
   const matcher: CustomPatternMatcherFunc = (text, offset, tokens) => {
     const prevToken = _.last(tokens);
-    if (
-      offset === 0 ||
-      prevToken?.tokenType.name === NewlineName
-    ) {
+    if (offset === 0 || prevToken?.tokenType.name === NewlineName) {
       regex.lastIndex = offset;
       const match = regex.exec(text);
       if (match) return [match[0]];
@@ -45,7 +42,9 @@ export const matchParenValue: CustomPatternMatcherFunc = (text, offset) => {
 const commodityTextPattern = '([a-zA-Z\\p{Sc}]+)|"([^";\\r\\n]*)"';
 const priceCommodityTextPattern = `(${commodityTextPattern}) +`;
 
-function getCommodityMatchFunc(commodityTextRegex: RegExp): CustomPatternMatcherFunc {
+function getCommodityMatchFunc(
+  commodityTextRegex: RegExp
+): CustomPatternMatcherFunc {
   return (text, offset) => {
     commodityTextRegex.lastIndex = offset;
     const match = commodityTextRegex.exec(text);
@@ -61,13 +60,11 @@ function getCommodityMatchFunc(commodityTextRegex: RegExp): CustomPatternMatcher
   };
 }
 
-export const matchCommodityText: CustomPatternMatcherFunc = getCommodityMatchFunc(
-  new RegExp(commodityTextPattern, 'uy')
-);
+export const matchCommodityText: CustomPatternMatcherFunc =
+  getCommodityMatchFunc(new RegExp(commodityTextPattern, 'uy'));
 
-export const matchPriceCommodityText: CustomPatternMatcherFunc = getCommodityMatchFunc(
-  new RegExp(priceCommodityTextPattern, 'uy')
-);
+export const matchPriceCommodityText: CustomPatternMatcherFunc =
+  getCommodityMatchFunc(new RegExp(priceCommodityTextPattern, 'uy'));
 
 export function matchAccountName(delimiter?: '(' | '[') {
   const s = delimiter ?? '(';
@@ -129,12 +126,18 @@ export const matchJournalNumber: CustomPatternMatcherFunc = (text, offset) => {
   let fullMatchText = fullMatch[0].trimEnd();
 
   // Edge case for commodities starting with 'E' or 'e'
-  if (/[eE]+$/g.test(fullMatchText)) fullMatchText = fullMatchText.replace(/[eE]+$/, '');
+  if (/[eE]+$/g.test(fullMatchText))
+    fullMatchText = fullMatchText.replace(/[eE]+$/, '');
 
-  if (!(/^\d+(,\d+)*(\.\d*)?([Ee][+-]?\d+)?$/g.test(fullMatchText)
-    || /^\d+(\.\d+)*(,\d*)?([Ee][+-]?\d+)?$/g.test(fullMatchText)
-    || /^\d+( \d+)*(\.\d*)?([Ee][+-]?\d+)?$/g.test(fullMatchText)
-    || /^\d+( \d+)*(,\d*)?([Ee][+-]?\d+)?$/g.test(fullMatchText))) return null;
+  if (
+    !(
+      /^\d+(,\d+)*(\.\d*)?([Ee][+-]?\d+)?$/g.test(fullMatchText) ||
+      /^\d+(\.\d+)*(,\d*)?([Ee][+-]?\d+)?$/g.test(fullMatchText) ||
+      /^\d+( \d+)*(\.\d*)?([Ee][+-]?\d+)?$/g.test(fullMatchText) ||
+      /^\d+( \d+)*(,\d*)?([Ee][+-]?\d+)?$/g.test(fullMatchText)
+    )
+  )
+    return null;
 
   return [fullMatchText];
 };

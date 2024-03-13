@@ -47,7 +47,7 @@ test('parses a description with a memo containing pipe characters', (t) => {
   t.context.lexer
     .addToken(Text, 'payee')
     .addToken(PIPE, '|')
-    .addToken(Memo, 'memo|note|text')
+    .addToken(Memo, 'memo|note|text');
   HLedgerParser.input = t.context.lexer.tokenize();
 
   t.deepEqual(

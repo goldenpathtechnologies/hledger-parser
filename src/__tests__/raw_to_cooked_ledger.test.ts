@@ -4,7 +4,6 @@ import { parseLedgerToRaw, rawToCookedLedger } from '../index';
 
 import { assertNoLexingOrParsingErrors } from './utils';
 
-
 test('converts from raw journal to cooked journal', (t) => {
   const rawResult = parseLedgerToRaw(`1900/01/01 A transaction ; a comment
     Assets:Chequing        -$1.00 = $99.00

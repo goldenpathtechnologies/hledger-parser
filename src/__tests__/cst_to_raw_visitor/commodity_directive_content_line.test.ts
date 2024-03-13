@@ -4,8 +4,10 @@ import { CSTParseReturn, parseLedgerToCST } from '../../index';
 import * as Raw from '../../lib/visitors/raw_types';
 import { getCommodityDirectiveObject } from '../utils';
 
-
-function getCommodityDirectiveContentLines(t: ExecutionContext, cstResult: CSTParseReturn): Raw.CommodityDirectiveContentLine[] {
+function getCommodityDirectiveContentLines(
+  t: ExecutionContext,
+  cstResult: CSTParseReturn
+): Raw.CommodityDirectiveContentLine[] {
   const commodityDirectiveObject = getCommodityDirectiveObject(t, cstResult);
 
   t.truthy(
@@ -23,10 +25,7 @@ test('returns a commodity directive content line containing a subdirective comme
 
   const contentLine = getCommodityDirectiveContentLines(t, cstResult)[0];
 
-  t.truthy(
-    contentLine.value.inlineComment,
-    'should contain an inline comment'
-  );
+  t.truthy(contentLine.value.inlineComment, 'should contain an inline comment');
 
   t.falsy(
     contentLine.value.formatSubdirective,
@@ -76,10 +75,7 @@ test('returns a commodity directive content line containing a format subdirectiv
     'should contain a fomrat subdirective'
   );
 
-  t.truthy(
-    contentLine.value.inlineComment,
-    'should contain an inline comment'
-  );
+  t.truthy(contentLine.value.inlineComment, 'should contain an inline comment');
 
   t.is(
     contentLine.value.formatSubdirective?.value.format.value,

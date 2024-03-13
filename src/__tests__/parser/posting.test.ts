@@ -23,8 +23,7 @@ test.before((t) => {
 });
 
 test('parses a posting containing account name', (t) => {
-  t.context.lexer
-    .addToken(RealAccountName, 'Assets:Chequing');
+  t.context.lexer.addToken(RealAccountName, 'Assets:Chequing');
   HLedgerParser.input = t.context.lexer.tokenize();
 
   t.deepEqual(

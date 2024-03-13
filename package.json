@@ -42,7 +42,7 @@
     "generate:diagram": "ts-node ./tools/generate_diagram.ts",
     "test": "run-s build:dev test:*",
     "test:lint": "eslint src --ext .ts",
-    "test:prettier": "prettier \"src/**/*.ts\" --list-different",
+    "test:prettier": "prettier \"src/**/*.ts\" --check",
     "test:unit": "nyc ava",
     "check-cli": "run-s test diff-integration-tests check-integration-tests",
     "check-integration-tests": "run-s check-integration-test:*",

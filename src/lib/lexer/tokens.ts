@@ -37,7 +37,7 @@ export const SINGLE_WS = createToken({
 
 export const DOUBLE_WS = createToken({
   name: 'DOUBLE_WS',
-  pattern: /[ \t]{2}/,
+  pattern: /[ \t]{2}/
 });
 
 export const DIGIT = createToken({ name: 'DIGIT', pattern: /\d/ });
@@ -158,7 +158,7 @@ export const MultipleWSPostingMode = createToken({
   pattern: /[ \t][ \t]+/,
   group: Lexer.SKIPPED,
   pop_mode: true,
-  push_mode: 'posting_amount_mode',
+  push_mode: 'posting_amount_mode'
 });
 
 export const RealAccountName = createToken({
@@ -219,10 +219,7 @@ export const DateAtStart = createToken({
 
 export const TxnStatusIndicator = createToken({
   name: 'TxnStatusIndicator',
-  pattern: matchOnlyAfter(/[*!]/y, [
-    JournalDate,
-    DateAtStart
-  ]),
+  pattern: matchOnlyAfter(/[*!]/y, [JournalDate, DateAtStart]),
   start_chars_hint: ['!', '*'],
   line_breaks: false
 });

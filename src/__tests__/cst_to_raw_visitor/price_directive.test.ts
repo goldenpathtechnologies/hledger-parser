@@ -10,9 +10,7 @@ test('returns a price directive object', (t) => {
 
   assertNoLexingOrParsingErrors(t, cstResult);
 
-  const result = CstToRawVisitor.journal(
-    cstResult.cstJournal.children
-  );
+  const result = CstToRawVisitor.journal(cstResult.cstJournal.children);
 
   t.is(result.length, 1, 'should modify a price directive');
   t.is(result[0].type, 'priceDirective', 'should be a priceDirective object');

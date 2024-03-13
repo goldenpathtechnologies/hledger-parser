@@ -28,9 +28,7 @@ test.before((t) => {
 });
 
 test('parses a transaction init line', (t) => {
-  t.context.lexer
-    .addToken(DateAtStart, '1900/01/01')
-    .addToken(NEWLINE, '\n');
+  t.context.lexer.addToken(DateAtStart, '1900/01/01').addToken(NEWLINE, '\n');
   HLedgerParser.input = t.context.lexer.tokenize();
 
   t.deepEqual(
@@ -144,10 +142,7 @@ test('does not parse a transaction init line without newline termination', (t) =
 test('does not parse a full line semicolon comment with incorrect token', (t) => {
   t.context.lexer
     .addToken(SemicolonComment, ';')
-    .addToken(
-      CommentText,
-      'a comment with wrong semicolon token'
-    );
+    .addToken(CommentText, 'a comment with wrong semicolon token');
   HLedgerParser.input = t.context.lexer.tokenize();
 
   t.falsy(

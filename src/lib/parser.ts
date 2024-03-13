@@ -270,7 +270,7 @@ class HLedgerParser extends CstParser {
             }
           ]);
         }
-      },
+      }
     ]);
     this.OPTION8(() => this.CONSUME6(AMOUNT_WS));
   }
@@ -363,51 +363,60 @@ class HLedgerParser extends CstParser {
     this.parseAmount(true);
   });
 
-  public commodityDirectiveContentLine = this.RULE('commodityDirectiveContentLine', () => {
-    this.CONSUME(INDENT);
-    this.OR([
-      {
-        ALT: () => {
-          this.SUBRULE(this.inlineComment);
-          this.CONSUME(NEWLINE);
+  public commodityDirectiveContentLine = this.RULE(
+    'commodityDirectiveContentLine',
+    () => {
+      this.CONSUME(INDENT);
+      this.OR([
+        {
+          ALT: () => {
+            this.SUBRULE(this.inlineComment);
+            this.CONSUME(NEWLINE);
+          }
+        },
+        {
+          ALT: () => {
+            this.SUBRULE1(this.formatSubdirective);
+            this.OPTION({
+              GATE: () => this.LA(0).tokenType === AMOUNT_WS,
+              DEF: () => this.SUBRULE1(this.inlineComment)
+            });
+            this.CONSUME1(NEWLINE);
+          }
         }
-      },
-      {
-        ALT: () => {
-          this.SUBRULE1(this.formatSubdirective);
-          this.OPTION({
-            GATE: () => this.LA(0).tokenType === AMOUNT_WS,
-            DEF: () => this.SUBRULE1(this.inlineComment)
-          });
-          this.CONSUME1(NEWLINE);
-        }
-      }
-    ]);
-  });
+      ]);
+    }
+  );
 
   public formatSubdirective = this.RULE('formatSubdirective', () => {
     this.CONSUME(FormatSubdirective);
     this.SUBRULE(this.commodityAmount);
   });
 
-  public defaultCommodityDirective = this.RULE('defaultCommodityDirective', () => {
-    this.CONSUME(DefaultCommodityDirective);
-    this.SUBRULE(this.commodityAmount);
-    this.OPTION1({
-      GATE: () => this.LA(0).tokenType === AMOUNT_WS,
-      DEF: () => this.SUBRULE2(this.inlineComment)
-    });
-    this.CONSUME(NEWLINE);
-    this.MANY(() => {
-      this.SUBRULE1(this.defaultCommodityDirectiveContentLine);
-    });
-  });
+  public defaultCommodityDirective = this.RULE(
+    'defaultCommodityDirective',
+    () => {
+      this.CONSUME(DefaultCommodityDirective);
+      this.SUBRULE(this.commodityAmount);
+      this.OPTION1({
+        GATE: () => this.LA(0).tokenType === AMOUNT_WS,
+        DEF: () => this.SUBRULE2(this.inlineComment)
+      });
+      this.CONSUME(NEWLINE);
+      this.MANY(() => {
+        this.SUBRULE1(this.defaultCommodityDirectiveContentLine);
+      });
+    }
+  );
 
-  public defaultCommodityDirectiveContentLine = this.RULE('defaultCommodityDirectiveContentLine', () => {
-    this.CONSUME(INDENT);
-    this.SUBRULE(this.inlineComment);
-    this.CONSUME(NEWLINE);
-  });
+  public defaultCommodityDirectiveContentLine = this.RULE(
+    'defaultCommodityDirectiveContentLine',
+    () => {
+      this.CONSUME(INDENT);
+      this.SUBRULE(this.inlineComment);
+      this.CONSUME(NEWLINE);
+    }
+  );
 }
 
 const ParserInstance = new HLedgerParser();

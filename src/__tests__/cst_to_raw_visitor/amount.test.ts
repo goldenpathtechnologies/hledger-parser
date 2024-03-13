@@ -5,7 +5,11 @@ import CstToRawVisitor from '../../lib/visitors/cst_to_raw';
 import * as Raw from '../../lib/visitors/raw_types';
 import { assertNoLexingOrParsingErrors } from '../utils';
 
-function assertIsValidTransactionObject(t: ExecutionContext, result: Raw.Journal, message: string) {
+function assertIsValidTransactionObject(
+  t: ExecutionContext,
+  result: Raw.Journal,
+  message: string
+) {
   t.is(result.length, 1, message);
   t.is(result[0].type, 'transaction', 'should be a transaction object');
   t.is(
@@ -20,11 +24,13 @@ test('returns a transaction object containing a posting with a positive amount a
 
   assertNoLexingOrParsingErrors(t, cstResult);
 
-  const result = CstToRawVisitor.journal(
-    cstResult.cstJournal.children
-  );
+  const result = CstToRawVisitor.journal(cstResult.cstJournal.children);
 
-  assertIsValidTransactionObject(t, result, 'should modify a transaction posting amount');
+  assertIsValidTransactionObject(
+    t,
+    result,
+    'should modify a transaction posting amount'
+  );
 
   t.deepEqual(
     ((result[0] as Raw.Transaction).value.contentLines[0] as Raw.Posting).value
@@ -44,11 +50,13 @@ test('returns a transaction object containing a posting with a negative amount a
 
   assertNoLexingOrParsingErrors(t, cstResult);
 
-  const result = CstToRawVisitor.journal(
-    cstResult.cstJournal.children
-  );
+  const result = CstToRawVisitor.journal(cstResult.cstJournal.children);
 
-  assertIsValidTransactionObject(t, result, 'should modify a transaction posting amount with a dash in front of the commodity');
+  assertIsValidTransactionObject(
+    t,
+    result,
+    'should modify a transaction posting amount with a dash in front of the commodity'
+  );
 
   t.deepEqual(
     ((result[0] as Raw.Transaction).value.contentLines[0] as Raw.Posting).value
@@ -68,9 +76,7 @@ test('returns a transaction object containing a posting with a positive amount a
 
   assertNoLexingOrParsingErrors(t, cstResult);
 
-  const result = CstToRawVisitor.journal(
-    cstResult.cstJournal.children
-  );
+  const result = CstToRawVisitor.journal(cstResult.cstJournal.children);
   t.is(
     result.length,
     1,
@@ -100,11 +106,13 @@ test('returns a transaction posting with an explicitly positive amount', (t) => 
 
   assertNoLexingOrParsingErrors(t, cstResult);
 
-  const result = CstToRawVisitor.journal(
-    cstResult.cstJournal.children
-  );
+  const result = CstToRawVisitor.journal(cstResult.cstJournal.children);
 
-  assertIsValidTransactionObject(t, result, 'should modify a transaction posting amount with a plus sign');
+  assertIsValidTransactionObject(
+    t,
+    result,
+    'should modify a transaction posting amount with a plus sign'
+  );
 
   t.deepEqual(
     ((result[0] as Raw.Transaction).value.contentLines[0] as Raw.Posting).value
@@ -124,11 +132,13 @@ test('returns a transaction posting with an explicitly positive amount and commo
 
   assertNoLexingOrParsingErrors(t, cstResult);
 
-  const result = CstToRawVisitor.journal(
-    cstResult.cstJournal.children
-  );
+  const result = CstToRawVisitor.journal(cstResult.cstJournal.children);
 
-  assertIsValidTransactionObject(t, result, 'should modify a transaction posting amount with a plus sign and commodity');
+  assertIsValidTransactionObject(
+    t,
+    result,
+    'should modify a transaction posting amount with a plus sign and commodity'
+  );
 
   t.deepEqual(
     ((result[0] as Raw.Transaction).value.contentLines[0] as Raw.Posting).value
@@ -148,11 +158,13 @@ test('returns a transaction posting with a dash and number space-delimited', (t)
 
   assertNoLexingOrParsingErrors(t, cstResult);
 
-  const result = CstToRawVisitor.journal(
-    cstResult.cstJournal.children
-  );
+  const result = CstToRawVisitor.journal(cstResult.cstJournal.children);
 
-  assertIsValidTransactionObject(t, result, 'should modify a transaction posting amount with a space-delimited dash');
+  assertIsValidTransactionObject(
+    t,
+    result,
+    'should modify a transaction posting amount with a space-delimited dash'
+  );
 
   t.deepEqual(
     ((result[0] as Raw.Transaction).value.contentLines[0] as Raw.Posting).value
@@ -172,11 +184,13 @@ test('returns a transaction posting with a plus and number space-delimited', (t)
 
   assertNoLexingOrParsingErrors(t, cstResult);
 
-  const result = CstToRawVisitor.journal(
-    cstResult.cstJournal.children
-  );
+  const result = CstToRawVisitor.journal(cstResult.cstJournal.children);
 
-  assertIsValidTransactionObject(t, result, 'should modify a transaction posting amount with a space-delimited plus');
+  assertIsValidTransactionObject(
+    t,
+    result,
+    'should modify a transaction posting amount with a space-delimited plus'
+  );
 
   t.deepEqual(
     ((result[0] as Raw.Transaction).value.contentLines[0] as Raw.Posting).value
@@ -196,9 +210,7 @@ test('returns a transaction posting with a dash and space before a commodity and
 
   assertNoLexingOrParsingErrors(t, cstResult);
 
-  const result = CstToRawVisitor.journal(
-    cstResult.cstJournal.children
-  );
+  const result = CstToRawVisitor.journal(cstResult.cstJournal.children);
 
   assertIsValidTransactionObject(
     t,
@@ -224,9 +236,7 @@ test('returns a transaction posting with a plus and space before a commodity and
 
   assertNoLexingOrParsingErrors(t, cstResult);
 
-  const result = CstToRawVisitor.journal(
-    cstResult.cstJournal.children
-  );
+  const result = CstToRawVisitor.journal(cstResult.cstJournal.children);
 
   assertIsValidTransactionObject(
     t,
@@ -252,9 +262,7 @@ test('returns a transaction posting with spaces between dash, commodity, and num
 
   assertNoLexingOrParsingErrors(t, cstResult);
 
-  const result = CstToRawVisitor.journal(
-    cstResult.cstJournal.children
-  );
+  const result = CstToRawVisitor.journal(cstResult.cstJournal.children);
 
   assertIsValidTransactionObject(
     t,
@@ -280,9 +288,7 @@ test('returns a transaction posting with spaces between Plus, commodity, and num
 
   assertNoLexingOrParsingErrors(t, cstResult);
 
-  const result = CstToRawVisitor.journal(
-    cstResult.cstJournal.children
-  );
+  const result = CstToRawVisitor.journal(cstResult.cstJournal.children);
 
   assertIsValidTransactionObject(
     t,
@@ -308,9 +314,7 @@ test('returns a transaction posting with a dash and commodity before a space and
 
   assertNoLexingOrParsingErrors(t, cstResult);
 
-  const result = CstToRawVisitor.journal(
-    cstResult.cstJournal.children
-  );
+  const result = CstToRawVisitor.journal(cstResult.cstJournal.children);
 
   assertIsValidTransactionObject(
     t,
@@ -336,9 +340,7 @@ test('returns a transaction posting with a plus and commodity before a space and
 
   assertNoLexingOrParsingErrors(t, cstResult);
 
-  const result = CstToRawVisitor.journal(
-    cstResult.cstJournal.children
-  );
+  const result = CstToRawVisitor.journal(cstResult.cstJournal.children);
 
   assertIsValidTransactionObject(
     t,
@@ -364,11 +366,13 @@ test('returns a transaction posting with a commodity and dash in reverse order',
 
   assertNoLexingOrParsingErrors(t, cstResult);
 
-  const result = CstToRawVisitor.journal(
-    cstResult.cstJournal.children
-  );
+  const result = CstToRawVisitor.journal(cstResult.cstJournal.children);
 
-  assertIsValidTransactionObject(t, result, 'should modify a transaction posting amount with a commodity and dash in reverse order');
+  assertIsValidTransactionObject(
+    t,
+    result,
+    'should modify a transaction posting amount with a commodity and dash in reverse order'
+  );
 
   t.deepEqual(
     ((result[0] as Raw.Transaction).value.contentLines[0] as Raw.Posting).value
@@ -388,11 +392,13 @@ test('returns a transaction posting with a commodity and plus in reverse order',
 
   assertNoLexingOrParsingErrors(t, cstResult);
 
-  const result = CstToRawVisitor.journal(
-    cstResult.cstJournal.children
-  );
+  const result = CstToRawVisitor.journal(cstResult.cstJournal.children);
 
-  assertIsValidTransactionObject(t, result, 'should modify a transaction posting amount with a commodity and plus in reverse order');
+  assertIsValidTransactionObject(
+    t,
+    result,
+    'should modify a transaction posting amount with a commodity and plus in reverse order'
+  );
 
   t.deepEqual(
     ((result[0] as Raw.Transaction).value.contentLines[0] as Raw.Posting).value
@@ -412,11 +418,13 @@ test('returns a transaction posting with a space-delimited commodity and dash in
 
   assertNoLexingOrParsingErrors(t, cstResult);
 
-  const result = CstToRawVisitor.journal(
-    cstResult.cstJournal.children
-  );
+  const result = CstToRawVisitor.journal(cstResult.cstJournal.children);
 
-  assertIsValidTransactionObject(t, result, 'should modify a transaction posting amount with a space-delimited commodity and dash in reverse order');
+  assertIsValidTransactionObject(
+    t,
+    result,
+    'should modify a transaction posting amount with a space-delimited commodity and dash in reverse order'
+  );
 
   t.deepEqual(
     ((result[0] as Raw.Transaction).value.contentLines[0] as Raw.Posting).value
@@ -436,11 +444,13 @@ test('returns a transaction posting with a space-delimited commodity and plus in
 
   assertNoLexingOrParsingErrors(t, cstResult);
 
-  const result = CstToRawVisitor.journal(
-    cstResult.cstJournal.children
-  );
+  const result = CstToRawVisitor.journal(cstResult.cstJournal.children);
 
-  assertIsValidTransactionObject(t, result, 'should modify a transaction posting amount with a space-delimited commodity and plus in reverse order');
+  assertIsValidTransactionObject(
+    t,
+    result,
+    'should modify a transaction posting amount with a space-delimited commodity and plus in reverse order'
+  );
 
   t.deepEqual(
     ((result[0] as Raw.Transaction).value.contentLines[0] as Raw.Posting).value
@@ -460,11 +470,13 @@ test('returns a transaction posting with a reversed order commodity and dash bef
 
   assertNoLexingOrParsingErrors(t, cstResult);
 
-  const result = CstToRawVisitor.journal(
-    cstResult.cstJournal.children
-  );
+  const result = CstToRawVisitor.journal(cstResult.cstJournal.children);
 
-  assertIsValidTransactionObject(t, result, 'should modify a transaction posting amount with a reversed order commodity and dash before a space and number');
+  assertIsValidTransactionObject(
+    t,
+    result,
+    'should modify a transaction posting amount with a reversed order commodity and dash before a space and number'
+  );
 
   t.deepEqual(
     ((result[0] as Raw.Transaction).value.contentLines[0] as Raw.Posting).value
@@ -484,11 +496,13 @@ test('returns a transaction posting with a reversed order commodity and plus bef
 
   assertNoLexingOrParsingErrors(t, cstResult);
 
-  const result = CstToRawVisitor.journal(
-    cstResult.cstJournal.children
-  );
+  const result = CstToRawVisitor.journal(cstResult.cstJournal.children);
 
-  assertIsValidTransactionObject(t, result, 'should modify a transaction posting amount with a reversed order commodity and plus before a space and number');
+  assertIsValidTransactionObject(
+    t,
+    result,
+    'should modify a transaction posting amount with a reversed order commodity and plus before a space and number'
+  );
 
   t.deepEqual(
     ((result[0] as Raw.Transaction).value.contentLines[0] as Raw.Posting).value
@@ -508,11 +522,13 @@ test('returns a transaction posting with spaces between reversed order commodity
 
   assertNoLexingOrParsingErrors(t, cstResult);
 
-  const result = CstToRawVisitor.journal(
-    cstResult.cstJournal.children
-  );
+  const result = CstToRawVisitor.journal(cstResult.cstJournal.children);
 
-  assertIsValidTransactionObject(t, result, 'should modify a transaction posting amount with spaces between reversed order commodity and dash, and number');
+  assertIsValidTransactionObject(
+    t,
+    result,
+    'should modify a transaction posting amount with spaces between reversed order commodity and dash, and number'
+  );
 
   t.deepEqual(
     ((result[0] as Raw.Transaction).value.contentLines[0] as Raw.Posting).value
@@ -532,11 +548,13 @@ test('returns a transaction posting with spaces between reversed order commodity
 
   assertNoLexingOrParsingErrors(t, cstResult);
 
-  const result = CstToRawVisitor.journal(
-    cstResult.cstJournal.children
-  );
+  const result = CstToRawVisitor.journal(cstResult.cstJournal.children);
 
-  assertIsValidTransactionObject(t, result, 'should modify a transaction posting amount with spaces between reversed order commodity and plus, and number');
+  assertIsValidTransactionObject(
+    t,
+    result,
+    'should modify a transaction posting amount with spaces between reversed order commodity and plus, and number'
+  );
 
   t.deepEqual(
     ((result[0] as Raw.Transaction).value.contentLines[0] as Raw.Posting).value
@@ -552,15 +570,19 @@ test('returns a transaction posting with spaces between reversed order commodity
 });
 
 test('returns a transaction posting that removes unnecessary whitespace', (t) => {
-  const cstResult = parseLedgerToCST(`1900/01/01\n    Account:Test  -   $   1\n`);
+  const cstResult = parseLedgerToCST(
+    `1900/01/01\n    Account:Test  -   $   1\n`
+  );
 
   assertNoLexingOrParsingErrors(t, cstResult);
 
-  const result = CstToRawVisitor.journal(
-    cstResult.cstJournal.children
-  );
+  const result = CstToRawVisitor.journal(cstResult.cstJournal.children);
 
-  assertIsValidTransactionObject(t, result, 'should modify a transaction posting amount containing multiple whitespace');
+  assertIsValidTransactionObject(
+    t,
+    result,
+    'should modify a transaction posting amount containing multiple whitespace'
+  );
 
   t.deepEqual(
     ((result[0] as Raw.Transaction).value.contentLines[0] as Raw.Posting).value

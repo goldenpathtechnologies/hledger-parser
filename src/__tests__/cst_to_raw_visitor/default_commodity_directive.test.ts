@@ -5,7 +5,10 @@ import CstToRawVisitor from '../../lib/visitors/cst_to_raw';
 import * as Raw from '../../lib/visitors/raw_types';
 import { assertNoLexingOrParsingErrors } from '../utils';
 
-function assertIsValidDefaultCommodityDirectiveObject(t: ExecutionContext, result: Raw.Journal) {
+function assertIsValidDefaultCommodityDirectiveObject(
+  t: ExecutionContext,
+  result: Raw.Journal
+) {
   t.is(result.length, 1, 'should contain a single journal item');
   t.is(
     result[0].type,
@@ -14,12 +17,13 @@ function assertIsValidDefaultCommodityDirectiveObject(t: ExecutionContext, resul
   );
 }
 
-function getDefaultCommodityDirectiveObject(t: ExecutionContext, cstResult: CSTParseReturn): Raw.DefaultCommodityDirective {
+function getDefaultCommodityDirectiveObject(
+  t: ExecutionContext,
+  cstResult: CSTParseReturn
+): Raw.DefaultCommodityDirective {
   assertNoLexingOrParsingErrors(t, cstResult);
 
-  const result = CstToRawVisitor.journal(
-    cstResult.cstJournal.children
-  );
+  const result = CstToRawVisitor.journal(cstResult.cstJournal.children);
 
   assertIsValidDefaultCommodityDirectiveObject(t, result);
 
@@ -29,9 +33,15 @@ function getDefaultCommodityDirectiveObject(t: ExecutionContext, cstResult: CSTP
 test('returns a default commodity directive object', (t) => {
   const cstResult = parseLedgerToCST(`D CAD1000.00\n`);
 
-  const defaultCommodityDirectiveObject = getDefaultCommodityDirectiveObject(t, cstResult);
+  const defaultCommodityDirectiveObject = getDefaultCommodityDirectiveObject(
+    t,
+    cstResult
+  );
 
-  t.truthy(defaultCommodityDirectiveObject.value.format, 'should contain inline commodity format');
+  t.truthy(
+    defaultCommodityDirectiveObject.value.format,
+    'should contain inline commodity format'
+  );
 
   t.is(
     defaultCommodityDirectiveObject.value.format.value,
@@ -57,7 +67,10 @@ test('returns a default commodity directive object with a subdirective comment',
     ; comment
 `);
 
-  const defaultCommodityDirectiveObject = getDefaultCommodityDirectiveObject(t, cstResult);
+  const defaultCommodityDirectiveObject = getDefaultCommodityDirectiveObject(
+    t,
+    cstResult
+  );
 
   t.is(
     defaultCommodityDirectiveObject.value.contentLines.length,
@@ -65,12 +78,10 @@ test('returns a default commodity directive object with a subdirective comment',
     'should contain a single content line'
   );
 
-  const inlineComment = defaultCommodityDirectiveObject.value.contentLines[0].value.inlineComment;
+  const inlineComment =
+    defaultCommodityDirectiveObject.value.contentLines[0].value.inlineComment;
 
-  t.truthy(
-    inlineComment,
-    'should contain a subdirective comment'
-  );
+  t.truthy(inlineComment, 'should contain a subdirective comment');
 
   t.is(
     inlineComment.value[0],
@@ -82,7 +93,10 @@ test('returns a default commodity directive object with a subdirective comment',
 test('returns a default commodity directive object with inline comment', (t) => {
   const cstResult = parseLedgerToCST(`D CAD1000.00 ; comment\n`);
 
-  const defaultCommodityDirectiveObject = getDefaultCommodityDirectiveObject(t, cstResult);
+  const defaultCommodityDirectiveObject = getDefaultCommodityDirectiveObject(
+    t,
+    cstResult
+  );
 
   t.truthy(
     defaultCommodityDirectiveObject.value.comments,

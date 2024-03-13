@@ -138,7 +138,7 @@ test('parses a default commodity directive with a subdirective comment', (t) => 
       commodityAmount: [
         {
           Number: 1,
-          CommodityText: 1,
+          CommodityText: 1
         }
       ],
       NEWLINE: 1,

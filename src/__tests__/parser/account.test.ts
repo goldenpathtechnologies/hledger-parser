@@ -43,10 +43,7 @@ test('parses a virtual account name', (t) => {
 });
 
 test('parses a virtual balanced account name', (t) => {
-  t.context.lexer.addToken(
-    VirtualBalancedAccountName,
-    '[Assets:Chequing]'
-  );
+  t.context.lexer.addToken(VirtualBalancedAccountName, '[Assets:Chequing]');
   HLedgerParser.input = t.context.lexer.tokenize();
 
   t.deepEqual(

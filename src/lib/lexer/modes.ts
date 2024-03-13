@@ -75,11 +75,7 @@ export const account_mode = [
   AccountName
 ];
 
-export const comment_mode = [
-  SINGLE_WS,
-  CommentText,
-  NEWLINE
-];
+export const comment_mode = [SINGLE_WS, CommentText, NEWLINE];
 
 export const inline_comment_mode = [
   SINGLE_WS,
@@ -134,11 +130,7 @@ export const txn_line_mode = [
   Text
 ];
 
-export const price_mode = [
-  SINGLE_WS,
-  JournalDate,
-  PDirectiveCommodityText
-];
+export const price_mode = [SINGLE_WS, JournalDate, PDirectiveCommodityText];
 
 export const price_amounts_mode = [
   AMOUNT_WS,
@@ -149,11 +141,7 @@ export const price_amounts_mode = [
   PLUS
 ];
 
-export const memo_mode = [
-  SemicolonComment,
-  NEWLINE,
-  Memo
-];
+export const memo_mode = [SemicolonComment, NEWLINE, Memo];
 
 export const commodity_mode = [
   AMOUNT_WS,

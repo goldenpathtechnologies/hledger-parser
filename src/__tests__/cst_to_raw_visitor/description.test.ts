@@ -43,7 +43,8 @@ test('returns a transaction object with a description and memo', (t) => {
 
 test('returns a transaction object with a description and memo containing pipe characters', (t) => {
   const result = CstToRawVisitor.journal(
-    parseLedgerToCST(`1900/01/01 payee | memo | note | text\n`).cstJournal.children
+    parseLedgerToCST(`1900/01/01 payee | memo | note | text\n`).cstJournal
+      .children
   );
   t.is(
     result.length,

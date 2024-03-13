@@ -4,7 +4,6 @@ import { cstToRawLedger, parseLedgerToCST } from '../index';
 
 import { assertNoLexingOrParsingErrors } from './utils';
 
-
 test('converts from concrete syntax tree to raw journal', (t) => {
   const cstResult = parseLedgerToCST(`1900/01/01 A transaction ; a comment
     Assets:Chequing        -$1.00 = $99.00
@@ -34,9 +33,7 @@ commodity 1000.00 USD ; comment
 
   assertNoLexingOrParsingErrors(t, cstResult);
 
-  const result = cstToRawLedger(
-    cstResult.cstJournal
-  );
+  const result = cstToRawLedger(cstResult.cstJournal);
   t.is(result.length, 9, 'should have 9 items in the parsed object');
   t.is(
     result[0].type,

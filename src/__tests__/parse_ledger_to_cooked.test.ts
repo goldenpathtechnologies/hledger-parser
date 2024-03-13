@@ -5,8 +5,7 @@ import { parseLedgerToCooked } from '../index';
 import { assertNoLexingOrParsingErrors } from './utils';
 
 test('correctly parses a properly formatted hledger journal', (t) => {
-  const result =
-    parseLedgerToCooked(`1900/01/01 A transaction ; a comment
+  const result = parseLedgerToCooked(`1900/01/01 A transaction ; a comment
     Assets:Chequing        -$1.00 = $99.00
     Expenses:Food
 

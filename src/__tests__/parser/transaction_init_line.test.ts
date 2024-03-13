@@ -21,9 +21,7 @@ test.before((t) => {
 });
 
 test('parses a transaction init line containing only date', (t) => {
-  t.context.lexer
-    .addToken(DateAtStart, '1900/01/01')
-    .addToken(NEWLINE, '\n');
+  t.context.lexer.addToken(DateAtStart, '1900/01/01').addToken(NEWLINE, '\n');
   HLedgerParser.input = t.context.lexer.tokenize();
 
   t.deepEqual(

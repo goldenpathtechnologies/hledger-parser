@@ -2,14 +2,20 @@ import test from 'ava';
 
 import { parseLedgerToCST } from '../../index';
 import CstToRawVisitor from '../../lib/visitors/cst_to_raw';
-import { assertNoLexingOrParsingErrors, getCommodityDirectiveObject } from '../utils';
+import {
+  assertNoLexingOrParsingErrors,
+  getCommodityDirectiveObject
+} from '../utils';
 
 test('returns a commodity directive object', (t) => {
   const cstResult = parseLedgerToCST(`commodity CAD1000.00\n`);
 
   const commodityDirectiveObject = getCommodityDirectiveObject(t, cstResult);
 
-  t.truthy(commodityDirectiveObject.value.format, 'should contain inline commodity format');
+  t.truthy(
+    commodityDirectiveObject.value.format,
+    'should contain inline commodity format'
+  );
 
   t.is(
     commodityDirectiveObject.value.format?.value,
@@ -66,12 +72,10 @@ test('returns a commodity directive object with format subdirective', (t) => {
     'should contain a single content line'
   );
 
-  const formatSubdirective = commodityDirectiveObject.value.contentLines[0].value.formatSubdirective;
+  const formatSubdirective =
+    commodityDirectiveObject.value.contentLines[0].value.formatSubdirective;
 
-  t.truthy(
-    formatSubdirective,
-    'should contain a format subdirective'
-  );
+  t.truthy(formatSubdirective, 'should contain a format subdirective');
 
   t.is(
     formatSubdirective?.value.format.value,
@@ -101,12 +105,11 @@ test('does not return a commodity directive object if both inline format and for
 
   t.throws(
     () => {
-      CstToRawVisitor.journal(
-        cstResult.cstJournal.children
-      );
+      CstToRawVisitor.journal(cstResult.cstJournal.children);
     },
     {
-      message: 'Format subdirective is invalid if inline commodity directive format exists'
+      message:
+        'Format subdirective is invalid if inline commodity directive format exists'
     },
     'should throw an error if format subdirective and inline commodity format present'
   );
@@ -121,12 +124,11 @@ test('does not return commodity directive object if inline and subdirective comm
 
   t.throws(
     () => {
-      CstToRawVisitor.journal(
-        cstResult.cstJournal.children
-      );
+      CstToRawVisitor.journal(cstResult.cstJournal.children);
     },
     {
-      message: 'The commodity text of the directive and format subdirective must match'
+      message:
+        'The commodity text of the directive and format subdirective must match'
     },
     'should throw an error if the commodity text in directive and subdirective differ'
   );
@@ -145,12 +147,10 @@ test('returns a commodity directive object with a subdirective comment', (t) => 
     'should contain a single content line'
   );
 
-  const inlineComment = commodityDirectiveObject.value.contentLines[0].value.inlineComment;
+  const inlineComment =
+    commodityDirectiveObject.value.contentLines[0].value.inlineComment;
 
-  t.truthy(
-    inlineComment,
-    'should contain a subdirective comment'
-  );
+  t.truthy(inlineComment, 'should contain a subdirective comment');
 
   t.is(
     inlineComment?.value[0],
@@ -173,18 +173,14 @@ test('returns a commodity directive object with format subdirective and subdirec
     'should contain 2 commodity directive content lines'
   );
 
-  const inlineComment = commodityDirectiveObject.value.contentLines[1].value.inlineComment;
-  const formatSubdirective = commodityDirectiveObject.value.contentLines[0].value.formatSubdirective;
+  const inlineComment =
+    commodityDirectiveObject.value.contentLines[1].value.inlineComment;
+  const formatSubdirective =
+    commodityDirectiveObject.value.contentLines[0].value.formatSubdirective;
 
-  t.truthy(
-    inlineComment,
-    'should contain a subdirective comment'
-  );
+  t.truthy(inlineComment, 'should contain a subdirective comment');
 
-  t.truthy(
-    formatSubdirective,
-    'should contain a format subdirective'
-  );
+  t.truthy(formatSubdirective, 'should contain a format subdirective');
 
   t.is(
     inlineComment?.value[0],
@@ -213,18 +209,14 @@ test('returns a commodity directive object with multiple subdirective comments',
     'should contain 2 commodity directive content lines'
   );
 
-  const inlineComment0 = commodityDirectiveObject.value.contentLines[0].value.inlineComment;
-  const inlineComment1 = commodityDirectiveObject.value.contentLines[1].value.inlineComment;
+  const inlineComment0 =
+    commodityDirectiveObject.value.contentLines[0].value.inlineComment;
+  const inlineComment1 =
+    commodityDirectiveObject.value.contentLines[1].value.inlineComment;
 
-  t.truthy(
-    inlineComment0,
-    'should contain a first subdirective comment'
-  );
+  t.truthy(inlineComment0, 'should contain a first subdirective comment');
 
-  t.truthy(
-    inlineComment1,
-    'should contain a second subdirective comment'
-  );
+  t.truthy(inlineComment1, 'should contain a second subdirective comment');
 
   t.is(
     inlineComment0?.value[0],
@@ -254,19 +246,16 @@ test('returns a commodity directive object with multiple subdirective comments a
     'should contain 3 commodity directive content lines'
   );
 
-  const inlineComment0 = commodityDirectiveObject.value.contentLines[0].value.inlineComment;
-  const inlineComment1 = commodityDirectiveObject.value.contentLines[1].value.inlineComment;
-  const formatSubdirective = commodityDirectiveObject.value.contentLines[2].value.formatSubdirective;
+  const inlineComment0 =
+    commodityDirectiveObject.value.contentLines[0].value.inlineComment;
+  const inlineComment1 =
+    commodityDirectiveObject.value.contentLines[1].value.inlineComment;
+  const formatSubdirective =
+    commodityDirectiveObject.value.contentLines[2].value.formatSubdirective;
 
-  t.truthy(
-    inlineComment0,
-    'should contain a first subdirective comment'
-  );
+  t.truthy(inlineComment0, 'should contain a first subdirective comment');
 
-  t.truthy(
-    inlineComment1,
-    'should contain a second subdirective comment'
-  );
+  t.truthy(inlineComment1, 'should contain a second subdirective comment');
 
   t.is(
     inlineComment0?.value[0],
@@ -280,10 +269,7 @@ test('returns a commodity directive object with multiple subdirective comments a
     'second subdirective comment should contain correct text'
   );
 
-  t.truthy(
-    formatSubdirective,
-    'should contain a format subdirective'
-  );
+  t.truthy(formatSubdirective, 'should contain a format subdirective');
 
   t.is(
     formatSubdirective?.value.format.value,
@@ -302,12 +288,11 @@ test('does not return a commodity directive object with multiple format subdirec
 
   t.throws(
     () => {
-      CstToRawVisitor.journal(
-        cstResult.cstJournal.children
-      );
+      CstToRawVisitor.journal(cstResult.cstJournal.children);
     },
     {
-      message: 'Only one format subdirective can be defined in the commodity directive'
+      message:
+        'Only one format subdirective can be defined in the commodity directive'
     },
     'should throw an error if there are multiple format subdirectives'
   );
@@ -328,9 +313,12 @@ test('returns a commodity directive object with order preserved content lines', 
     'should contain 3 commodity directive content lines'
   );
 
-  const contentLineValue0 = commodityDirectiveObject.value.contentLines[0].value;
-  const contentLineValue1 = commodityDirectiveObject.value.contentLines[1].value;
-  const contentLineValue2 = commodityDirectiveObject.value.contentLines[2].value;
+  const contentLineValue0 =
+    commodityDirectiveObject.value.contentLines[0].value;
+  const contentLineValue1 =
+    commodityDirectiveObject.value.contentLines[1].value;
+  const contentLineValue2 =
+    commodityDirectiveObject.value.contentLines[2].value;
 
   t.truthy(
     contentLineValue0.inlineComment,
@@ -382,8 +370,5 @@ test('returns a commodity directive object with a format subdirective containing
     'content line should contain a format subdirective'
   );
 
-  t.truthy(
-    inlineComment,
-    'content line should contain an inline comment'
-  );
+  t.truthy(inlineComment, 'content line should contain an inline comment');
 });

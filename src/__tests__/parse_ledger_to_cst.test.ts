@@ -4,10 +4,8 @@ import { parseLedgerToCST } from '../index';
 
 import { assertNoLexingOrParsingErrors } from './utils';
 
-
 test('correctly lexes a properly formatted hledger journal', (t) => {
-  const result =
-    parseLedgerToCST(`1900/01/01 A transaction ; a comment
+  const result = parseLedgerToCST(`1900/01/01 A transaction ; a comment
     Assets:Chequing        -$1.00 = $99.00
     Expenses:Food
 

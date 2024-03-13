@@ -39,7 +39,8 @@ test('returns a tag object with an undefined value', (t) => {
 
 test('returns a tag object with a value', (t) => {
   const result = CstToRawVisitor.journal(
-    parseLedgerToCST(`account test  ; tag-name: tag-value\n`).cstJournal.children
+    parseLedgerToCST(`account test  ; tag-name: tag-value\n`).cstJournal
+      .children
   );
   t.is(result.length, 1, 'should modify a tag with a value');
   t.truthy(
@@ -80,16 +81,9 @@ test('returns a tag object when tags have ledger format', (t) => {
 
   t.is(result.length, 1, 'should modify a tag with a value');
 
-  t.truthy(
-    inlineComment,
-    'should contain an inline comment object'
-  );
+  t.truthy(inlineComment, 'should contain an inline comment object');
 
-  t.is(
-    inlineComment?.value.length,
-    2,
-    'should have an array with a two items'
-  );
+  t.is(inlineComment?.value.length, 2, 'should have an array with a two items');
 
   t.is(
     inlineComment?.value[0],

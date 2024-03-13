@@ -127,7 +127,8 @@ const tests = [
   {
     pattern: '1900/01/01 New York Steakhouse|memo|note|something else|',
     expected: ['DateAtStart', 'Text', 'PIPE', 'Memo'],
-    title: 'recognize a transaction with a payee note containing pipe characters'
+    title:
+      'recognize a transaction with a payee note containing pipe characters'
   }
 ];
 

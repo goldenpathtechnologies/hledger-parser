@@ -51,9 +51,7 @@ test('does not parse a transaction date if not at start of line', (t) => {
 });
 
 test('does not parse transaction date with empty posting date', (t) => {
-  t.context.lexer
-    .addToken(DateAtStart, '1900/03/03')
-    .addToken(EQUALS, '=');
+  t.context.lexer.addToken(DateAtStart, '1900/03/03').addToken(EQUALS, '=');
   HLedgerParser.input = t.context.lexer.tokenize();
 
   t.falsy(HLedgerParser.transactionDate(), '<transactionDate!> 1900/03/03=');

@@ -35,9 +35,7 @@ test('parses an account directive content line', (t) => {
 });
 
 test('does not parse an account directive content line without newline termination', (t) => {
-  t.context.lexer
-    .addToken(INDENT, '    ')
-    .addToken(SemicolonComment, ';');
+  t.context.lexer.addToken(INDENT, '    ').addToken(SemicolonComment, ';');
   HLedgerParser.input = t.context.lexer.tokenize();
 
   t.falsy(
@@ -47,9 +45,7 @@ test('does not parse an account directive content line without newline terminati
 });
 
 test('does not parse non-indented account directive content line', (t) => {
-  t.context.lexer
-    .addToken(SemicolonComment, ';')
-    .addToken(NEWLINE, '\n');
+  t.context.lexer.addToken(SemicolonComment, ';').addToken(NEWLINE, '\n');
   HLedgerParser.input = t.context.lexer.tokenize();
 
   t.falsy(

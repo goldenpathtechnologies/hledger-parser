@@ -20,9 +20,7 @@ test.before((t) => {
 });
 
 test('parses a semicolon line comment with no content', (t) => {
-  t.context.lexer
-    .addToken(SEMICOLON_AT_START, ';')
-    .addToken(NEWLINE, '\n');
+  t.context.lexer.addToken(SEMICOLON_AT_START, ';').addToken(NEWLINE, '\n');
   HLedgerParser.input = t.context.lexer.tokenize();
 
   t.deepEqual(
@@ -36,9 +34,7 @@ test('parses a semicolon line comment with no content', (t) => {
 });
 
 test('parses a hashtag line comment with no content', (t) => {
-  t.context.lexer
-    .addToken(HASHTAG_AT_START, '#')
-    .addToken(NEWLINE, '\n');
+  t.context.lexer.addToken(HASHTAG_AT_START, '#').addToken(NEWLINE, '\n');
   HLedgerParser.input = t.context.lexer.tokenize();
 
   t.deepEqual(
@@ -52,9 +48,7 @@ test('parses a hashtag line comment with no content', (t) => {
 });
 
 test('parses an asterisk line comment with no content', (t) => {
-  t.context.lexer
-    .addToken(ASTERISK_AT_START, '*')
-    .addToken(NEWLINE, '\n');
+  t.context.lexer.addToken(ASTERISK_AT_START, '*').addToken(NEWLINE, '\n');
   HLedgerParser.input = t.context.lexer.tokenize();
 
   t.deepEqual(

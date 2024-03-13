@@ -3,7 +3,7 @@ import anyTest, { TestInterface } from 'ava';
 import {
   CommodityText,
   FormatSubdirective,
-  JournalNumber,
+  JournalNumber
 } from '../../lib/lexer/tokens';
 import HLedgerParser from '../../lib/parser';
 import { MockLexer, simplifyCst } from '../utils';
@@ -56,8 +56,5 @@ test('does not parse a format subdirective without a number', (t) => {
     .addToken(CommodityText, '$');
   HLedgerParser.input = t.context.lexer.tokenize();
 
-  t.falsy(
-    HLedgerParser.formatSubdirective(),
-    '<formatSubdirective!> format $'
-  );
+  t.falsy(HLedgerParser.formatSubdirective(), '<formatSubdirective!> format $');
 });

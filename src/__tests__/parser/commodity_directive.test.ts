@@ -158,7 +158,7 @@ test('parses a commodity directive with a subdirective comment', (t) => {
       commodityAmount: [
         {
           Number: 1,
-          CommodityText: 1,
+          CommodityText: 1
         }
       ],
       NEWLINE: 1,
@@ -279,7 +279,7 @@ test('parses a commodity directive with a format subdirective and subdirective c
                   CommodityText: 1,
                   Number: 1
                 }
-              ],
+              ]
             }
           ]
         },
@@ -415,7 +415,7 @@ test('parses a commodity directive with a format subdirective inbetween several 
                 }
               ]
             }
-          ],
+          ]
         },
         {
           INDENT: 1,

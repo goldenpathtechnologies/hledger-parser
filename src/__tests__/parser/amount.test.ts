@@ -5,7 +5,7 @@ import {
   CommodityText,
   DASH,
   JournalNumber,
-  PLUS,
+  PLUS
 } from '../../lib/lexer/tokens';
 import HLedgerParser from '../../lib/parser';
 import { MockLexer, simplifyCst } from '../utils';
@@ -78,9 +78,7 @@ test('parses a negative amount with leading dash and both commodity symbol and n
 });
 
 test('parses a positive amount with prepended commodity symbol', (t) => {
-  t.context.lexer
-    .addToken(CommodityText, '$')
-    .addToken(JournalNumber, '1.00');
+  t.context.lexer.addToken(CommodityText, '$').addToken(JournalNumber, '1.00');
   HLedgerParser.input = t.context.lexer.tokenize();
 
   t.deepEqual(
@@ -94,9 +92,7 @@ test('parses a positive amount with prepended commodity symbol', (t) => {
 });
 
 test('parses a positive amount with appended commodity symbol', (t) => {
-  t.context.lexer
-    .addToken(JournalNumber, '1.00')
-    .addToken(CommodityText, '$');
+  t.context.lexer.addToken(JournalNumber, '1.00').addToken(CommodityText, '$');
   HLedgerParser.input = t.context.lexer.tokenize();
 
   t.deepEqual(
@@ -141,9 +137,7 @@ test('parses a negative amount with leading commodity symbol', (t) => {
 });
 
 test('parses a negative amount with no commodity symbol', (t) => {
-  t.context.lexer
-    .addToken(DASH, '-')
-    .addToken(JournalNumber, '1.00');
+  t.context.lexer.addToken(DASH, '-').addToken(JournalNumber, '1.00');
   HLedgerParser.input = t.context.lexer.tokenize();
 
   t.deepEqual(
@@ -351,9 +345,7 @@ test('parses an explicitly positive amount with leading space separated commodit
 });
 
 test('parses an explicitly positive amount', (t) => {
-  t.context.lexer
-    .addToken(PLUS, '+')
-    .addToken(JournalNumber, '1.00');
+  t.context.lexer.addToken(PLUS, '+').addToken(JournalNumber, '1.00');
   HLedgerParser.input = t.context.lexer.tokenize();
 
   t.deepEqual(

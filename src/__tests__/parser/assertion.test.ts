@@ -1,4 +1,4 @@
-import anyTest, {TestInterface} from 'ava';
+import anyTest, { TestInterface } from 'ava';
 
 import {
   AMOUNT_WS,

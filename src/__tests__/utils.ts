@@ -83,7 +83,10 @@ export function simplifyLexResult(result: ILexingResult): simpleLex[] {
   );
 }
 
-export function assertNoLexingOrParsingErrors(t: ExecutionContext, result: ParseReturn) {
+export function assertNoLexingOrParsingErrors(
+  t: ExecutionContext,
+  result: ParseReturn
+) {
   t.is(
     result.lexErrors.length,
     0,
@@ -97,17 +100,25 @@ export function assertNoLexingOrParsingErrors(t: ExecutionContext, result: Parse
   );
 }
 
-export function assertIsValidCommodityDirectiveObject(t: ExecutionContext, result: Raw.Journal) {
+export function assertIsValidCommodityDirectiveObject(
+  t: ExecutionContext,
+  result: Raw.Journal
+) {
   t.is(result.length, 1, 'should contain a single journal item');
-  t.is(result[0].type, 'commodityDirective', 'should be a commodity directive object');
+  t.is(
+    result[0].type,
+    'commodityDirective',
+    'should be a commodity directive object'
+  );
 }
 
-export function getCommodityDirectiveObject(t: ExecutionContext, cstResult: CSTParseReturn): Raw.CommodityDirective {
+export function getCommodityDirectiveObject(
+  t: ExecutionContext,
+  cstResult: CSTParseReturn
+): Raw.CommodityDirective {
   assertNoLexingOrParsingErrors(t, cstResult);
 
-  const result = CstToRawVisitor.journal(
-    cstResult.cstJournal.children
-  );
+  const result = CstToRawVisitor.journal(cstResult.cstJournal.children);
 
   assertIsValidCommodityDirectiveObject(t, result);
 

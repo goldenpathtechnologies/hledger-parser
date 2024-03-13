@@ -4,9 +4,15 @@ import { IToken } from 'chevrotain';
 import { parseLedgerToCST } from '../../index';
 import CstToRawVisitor from '../../lib/visitors/cst_to_raw';
 import * as Raw from '../../lib/visitors/raw_types';
-import { assertIsValidCommodityDirectiveObject, assertNoLexingOrParsingErrors } from '../utils';
+import {
+  assertIsValidCommodityDirectiveObject,
+  assertNoLexingOrParsingErrors
+} from '../utils';
 
-function assertCommodityDirectiveHasInlineFormat(t: ExecutionContext, result: Raw.Journal) {
+function assertCommodityDirectiveHasInlineFormat(
+  t: ExecutionContext,
+  result: Raw.Journal
+) {
   t.truthy(
     (result[0] as Raw.CommodityDirective).value.format,
     'should contain an inline commodity format'
@@ -18,9 +24,7 @@ test('returns a commodity directive object containing a commodity amount', (t) =
 
   assertNoLexingOrParsingErrors(t, cstResult);
 
-  const result = CstToRawVisitor.journal(
-    cstResult.cstJournal.children
-  );
+  const result = CstToRawVisitor.journal(cstResult.cstJournal.children);
 
   assertIsValidCommodityDirectiveObject(t, result);
   assertCommodityDirectiveHasInlineFormat(t, result);
@@ -42,16 +46,18 @@ test('returns a commodity directive object containing a commodity amount with a 
 
   assertNoLexingOrParsingErrors(t, cstResult);
 
-  const result = CstToRawVisitor.journal(
-    cstResult.cstJournal.children
-  );
+  const result = CstToRawVisitor.journal(cstResult.cstJournal.children);
 
   assertIsValidCommodityDirectiveObject(t, result);
   assertCommodityDirectiveHasInlineFormat(t, result);
 
   const amount = (result[0] as Raw.CommodityDirective).value.format;
 
-  t.is(amount?.value, '$ 1000.00', `should contain a commodity amount with a space`);
+  t.is(
+    amount?.value,
+    '$ 1000.00',
+    `should contain a commodity amount with a space`
+  );
 });
 
 test('returns a commodity directive object containing a commodity amount with a dash', (t) => {
@@ -59,9 +65,7 @@ test('returns a commodity directive object containing a commodity amount with a 
 
   assertNoLexingOrParsingErrors(t, cstResult);
 
-  const result = CstToRawVisitor.journal(
-    cstResult.cstJournal.children
-  );
+  const result = CstToRawVisitor.journal(cstResult.cstJournal.children);
 
   assertIsValidCommodityDirectiveObject(t, result);
   assertCommodityDirectiveHasInlineFormat(t, result);
@@ -76,9 +80,7 @@ test('returns a commodity directive object containing a commodity amount with a 
 
   assertNoLexingOrParsingErrors(t, cstResult);
 
-  const result = CstToRawVisitor.journal(
-    cstResult.cstJournal.children
-  );
+  const result = CstToRawVisitor.journal(cstResult.cstJournal.children);
 
   assertIsValidCommodityDirectiveObject(t, result);
   assertCommodityDirectiveHasInlineFormat(t, result);
@@ -93,25 +95,29 @@ test('returns a commodity directive object containing a commodity amount with mu
 
   assertNoLexingOrParsingErrors(t, cstResult);
 
-  const result = CstToRawVisitor.journal(
-    cstResult.cstJournal.children
-  );
+  const result = CstToRawVisitor.journal(cstResult.cstJournal.children);
 
   assertIsValidCommodityDirectiveObject(t, result);
   assertCommodityDirectiveHasInlineFormat(t, result);
 
   const amount = (result[0] as Raw.CommodityDirective).value.format;
 
-  t.is(amount?.value, '- $ 1 000.00', `should contain a commodity amount with multiple spaces`);
+  t.is(
+    amount?.value,
+    '- $ 1 000.00',
+    `should contain a commodity amount with multiple spaces`
+  );
 });
 
 test('throws an error if amount in commodity directive does not contain commodity text', (t) => {
   t.throws(
     () => {
       CstToRawVisitor.commodityAmount({
-        Number: [{
-          image: '1000.00'
-        }] as IToken[],
+        Number: [
+          {
+            image: '1000.00'
+          }
+        ] as IToken[],
         CommodityText: undefined
       });
     },

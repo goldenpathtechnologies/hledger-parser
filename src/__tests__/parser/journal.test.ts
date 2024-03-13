@@ -13,9 +13,7 @@ test.before((t) => {
 });
 
 test('parses a journal containing a single journal item', (t) => {
-  t.context.lexer
-    .addToken(DateAtStart, '1900/01/01')
-    .addToken(NEWLINE, '\n');
+  t.context.lexer.addToken(DateAtStart, '1900/01/01').addToken(NEWLINE, '\n');
   HLedgerParser.input = t.context.lexer.tokenize();
 
   t.deepEqual(

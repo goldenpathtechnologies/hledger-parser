@@ -57,10 +57,9 @@
     "doc": "run-s doc:html && open-cli build/docs/index.html",
     "doc:html": "typedoc src/ --exclude **/*.spec.ts --out build/docs",
     "doc:json": "typedoc src/ --exclude **/*.spec.ts --json build/docs/typedoc.json",
-    "version": "standard-version",
     "commit": "git cz",
     "reset-hard": "git clean -dfx && git reset --hard && npm i",
-    "prepare-release": "run-s reset-hard test cov:check build:prod doc:html version doc:publish"
+    "prepare-release": "run-s reset-hard test cov:check build:prod doc:html doc:publish"
   },
   "engines": {
     "node": ">=10"
@@ -93,7 +92,6 @@
     "open-cli": "^6.0.1",
     "prettier": "^3.2.5",
     "rimraf": "^3.0.2",
-    "standard-version": "^9.0.0",
     "ts-node": "^9.1.1",
     "typedoc": "^0.25.12",
     "typescript": "^4.7.4"

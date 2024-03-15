@@ -20,7 +20,7 @@ test('correctly parses a shorthand date', (t) => {
         parseLedgerToRaw(`2020/15/90 transaction\n`).rawJournal
       );
     },
-    null,
+    undefined,
     'should throw an error when the date is not a real date'
   );
 });

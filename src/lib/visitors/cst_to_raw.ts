@@ -1,9 +1,9 @@
 import HLedgerParser from '../parser';
 import { notEmpty } from '../type_utils';
 
+import type * as Raw from './raw_types';
 import type * as ParserTypes from '../hledger_cst';
 import type * as Core from '../types';
-import type * as Raw from './raw_types';
 
 const BaseCstVisitor = HLedgerParser.getBaseCstVisitorConstructor();
 

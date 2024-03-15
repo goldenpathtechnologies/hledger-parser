@@ -1,4 +1,4 @@
-import anyTest, { TestInterface } from 'ava';
+import anyTest, { TestFn } from 'ava';
 
 import {
   RealAccountName,
@@ -8,7 +8,7 @@ import {
 import HLedgerParser from '../../lib/parser';
 import { MockLexer, simplifyCst } from '../utils';
 
-const test = anyTest as TestInterface<{ lexer: MockLexer }>;
+const test = anyTest as TestFn<{ lexer: MockLexer }>;
 
 test.before((t) => {
   t.context = {

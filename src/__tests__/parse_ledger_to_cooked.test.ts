@@ -48,7 +48,7 @@ test('does not parse text that is not in hledger format', (t) => {
 test('does not parse journal items that are not newline terminated', (t) => {
   t.throws(
     () => parseLedgerToCooked('P 1900/01/01 $1.00'),
-    null,
+    undefined,
     'should throw an error on parsing non-terminated journal item'
   );
 });

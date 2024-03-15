@@ -56,5 +56,10 @@
         "helpers": ["src/__tests__/**/utils.ts"]
       }
     ]
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    }
   }
 }

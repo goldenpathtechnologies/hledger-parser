@@ -1,10 +1,10 @@
-import anyTest, { TestInterface } from 'ava';
+import anyTest, { TestFn } from 'ava';
 
 import { parseLedgerToRaw } from '../index';
 
 import { assertNoLexingOrParsingErrors } from './utils';
 
-const test = anyTest as TestInterface<{ journal: string }>;
+const test = anyTest as TestFn<{ journal: string }>;
 
 test.before((t) => {
   t.context = {
@@ -100,7 +100,7 @@ test('does not parse text that is not in hledger format', (t) => {
 test('does not parse journal items that are not newline terminated', (t) => {
   t.throws(
     () => parseLedgerToRaw('P 1900/01/01 $1.00'),
-    null,
+    undefined,
     'should throw an error on parsing non-terminated journal item'
   );
 });

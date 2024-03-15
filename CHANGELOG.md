@@ -1,3 +1,11 @@
+## [2.0.1](https://github.com/goldenpathtechnologies/hledger-parser/compare/v2.0.0...v2.0.1) (2024-03-15)
+
+
+### Bug Fixes
+
+* disabling npm publish until releases are stable ([bd6dce2](https://github.com/goldenpathtechnologies/hledger-parser/commit/bd6dce2ce8092cb6dfc28716d227c2ad90e48135))
+* removed standard-version from project ([a1d66ad](https://github.com/goldenpathtechnologies/hledger-parser/commit/a1d66ad5cbd733fedd4f909d6b6541c73c7f5a43))
+
 ### [0.3.1](https://github.com/jonestristand/hledger-parser/compare/v0.2.2...v0.3.1) (2023-09-07)
 
 

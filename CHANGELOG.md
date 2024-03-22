@@ -1,3 +1,10 @@
+## [2.1.0](https://github.com/goldenpathtechnologies/hledger-parser/compare/v2.0.1...v2.1.0) (2024-03-22)
+
+
+### Features
+
+* added support for multiline comments ([3bc47c0](https://github.com/goldenpathtechnologies/hledger-parser/commit/3bc47c014d4bb6cad6579c1cbd7af49ed89bac89))
+
 ## [2.0.1](https://github.com/goldenpathtechnologies/hledger-parser/compare/v2.0.0...v2.0.1) (2024-03-15)
 
 

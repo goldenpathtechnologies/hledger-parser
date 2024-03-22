@@ -10,6 +10,7 @@ import {
   inline_comment_mode,
   inline_comment_tag_mode,
   memo_mode,
+  multiline_comment_mode,
   posting_amount_mode,
   posting_mode,
   price_amounts_mode,
@@ -32,6 +33,7 @@ export const tokenModeDefinitions = {
     price_mode,
     price_amounts_mode,
     memo_mode,
+    multiline_comment_mode,
     default_mode
   },
   defaultMode: 'default_mode'

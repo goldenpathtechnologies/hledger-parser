@@ -1,4 +1,4 @@
-import { CstParser } from 'chevrotain';
+import { CstParser, EOF } from 'chevrotain';
 
 import { tokenModeDefinitions } from './lexer';
 import {
@@ -27,7 +27,11 @@ import {
   JournalDate,
   JournalNumber,
   LPAREN,
+  MC_NEWLINE,
   Memo,
+  MultilineComment,
+  MultilineCommentEnd,
+  MultilineCommentText,
   NEWLINE,
   ParenValue,
   PDirective,
@@ -96,6 +100,7 @@ class HLedgerParser extends CstParser {
       { ALT: () => this.SUBRULE(this.accountDirective) },
       { ALT: () => this.SUBRULE(this.commodityDirective) },
       { ALT: () => this.SUBRULE(this.defaultCommodityDirective) },
+      { ALT: () => this.SUBRULE(this.multilineComment) },
       { ALT: () => this.CONSUME(NEWLINE) }
     ]);
   });
@@ -417,6 +422,43 @@ class HLedgerParser extends CstParser {
       this.CONSUME(NEWLINE);
     }
   );
+
+  public multilineComment = this.RULE('multilineComment', () => {
+    this.CONSUME(MultilineComment);
+    this.CONSUME(MC_NEWLINE);
+    this.MANY(() => this.SUBRULE(this.multilineCommentItem));
+    this.OPTION({
+      GATE: () => this.LA(1).tokenType !== EOF,
+      DEF: () => {
+        this.CONSUME(MultilineCommentEnd);
+        this.CONSUME(NEWLINE);
+      }
+    });
+  });
+
+  public multilineCommentItem = this.RULE('multilineCommentItem', () => {
+    this.OR([
+      {
+        ALT: () => {
+          this.CONSUME(MultilineCommentText);
+          this.OR1([
+            {
+              ALT: () => this.CONSUME(MC_NEWLINE)
+            },
+            {
+              ALT: () => this.CONSUME(EOF)
+            }
+          ]);
+        }
+      },
+      {
+        ALT: () => {
+          this.CONSUME1(MC_NEWLINE);
+          this.OPTION(() => this.CONSUME1(EOF));
+        }
+      }
+    ]);
+  });
 }
 
 const ParserInstance = new HLedgerParser();

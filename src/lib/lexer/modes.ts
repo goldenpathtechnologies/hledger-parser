@@ -24,7 +24,11 @@ import {
   JournalDate,
   JournalNumber,
   LPAREN,
+  MC_NEWLINE,
   Memo,
+  MultilineComment,
+  MultilineCommentEnd,
+  MultilineCommentText,
   MultipleWSPostingMode,
   NEWLINE,
   ParenValue,
@@ -50,6 +54,7 @@ export const default_mode = [
   PDirective,
   CommodityDirective,
   DefaultCommodityDirective,
+  MultilineComment,
   INDENT,
   SEMICOLON_AT_START,
   HASHTAG_AT_START,
@@ -161,4 +166,10 @@ export const format_mode = [
   DASH,
   PLUS,
   SemicolonComment
+];
+
+export const multiline_comment_mode = [
+  MC_NEWLINE,
+  MultilineCommentEnd,
+  MultilineCommentText
 ];

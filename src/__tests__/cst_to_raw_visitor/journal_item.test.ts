@@ -66,3 +66,27 @@ test('returns a commodity directive object', (t) => {
     'should return a commodity directive object'
   );
 });
+
+test('returns a default commodity directive object', (t) => {
+  const result = CstToRawVisitor.journal(
+    parseLedgerToCST(`D CAD1000.00\n`).cstJournal.children
+  );
+  t.is(result.length, 1, 'should modify a default commodity directive');
+  t.is(
+    result[0].type,
+    'defaultCommodityDirective',
+    'should return a default commodity directive object'
+  );
+});
+
+test('returns a multiline comment object', (t) => {
+  const result = CstToRawVisitor.journal(
+    parseLedgerToCST(`comment\nend comment\n`).cstJournal.children
+  );
+  t.is(result.length, 1, 'should modify a multiline comment');
+  t.is(
+    result[0].type,
+    'multilineComment',
+    'should return a multiline comment object'
+  );
+});

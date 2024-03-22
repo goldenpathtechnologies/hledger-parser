@@ -66,6 +66,7 @@ export type JournalItemCstChildren = {
   accountDirective?: AccountDirectiveCstNode[];
   commodityDirective?: CommodityDirectiveCstNode[];
   defaultCommodityDirective?: DefaultCommodityDirectiveCstNode[];
+  multilineComment?: MultilineCommentCstNode[];
   NEWLINE?: IToken[];
 };
 
@@ -321,6 +322,30 @@ export type DefaultCommodityDirectiveContentLineCstChildren = {
   NEWLINE: IToken[];
 };
 
+export interface MultilineCommentCstNode extends CstNode {
+  name: "multilineComment";
+  children: MultilineCommentCstChildren;
+}
+
+export type MultilineCommentCstChildren = {
+  MultilineComment: IToken[];
+  MC_NEWLINE: IToken[];
+  multilineCommentItem?: MultilineCommentItemCstNode[];
+  MultilineCommentEnd?: IToken[];
+  NEWLINE?: IToken[];
+};
+
+export interface MultilineCommentItemCstNode extends CstNode {
+  name: "multilineCommentItem";
+  children: MultilineCommentItemCstChildren;
+}
+
+export type MultilineCommentItemCstChildren = {
+  MultilineCommentText?: IToken[];
+  MC_NEWLINE?: (IToken)[];
+  EOF?: (IToken)[];
+};
+
 export interface ICstNodeVisitor<IN, OUT> extends ICstVisitor<IN, OUT> {
   lineComment(children: LineCommentCstChildren, param?: IN): OUT;
   inlineComment(children: InlineCommentCstChildren, param?: IN): OUT;
@@ -349,4 +374,6 @@ export interface ICstNodeVisitor<IN, OUT> extends ICstVisitor<IN, OUT> {
   formatSubdirective(children: FormatSubdirectiveCstChildren, param?: IN): OUT;
   defaultCommodityDirective(children: DefaultCommodityDirectiveCstChildren, param?: IN): OUT;
   defaultCommodityDirectiveContentLine(children: DefaultCommodityDirectiveContentLineCstChildren, param?: IN): OUT;
+  multilineComment(children: MultilineCommentCstChildren, param?: IN): OUT;
+  multilineCommentItem(children: MultilineCommentItemCstChildren, param?: IN): OUT;
 }

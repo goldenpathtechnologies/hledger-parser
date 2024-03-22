@@ -291,3 +291,29 @@ export const FormatSubdirective = createToken({
   line_breaks: false,
   push_mode: 'format_mode'
 });
+
+// ====- Multiline Comment Tokens -====
+export const MC_NEWLINE = createToken({
+  name: 'MC_NEWLINE',
+  pattern: /(\r\n|\r|\n)/
+});
+
+export const MultilineComment = createToken({
+  name: 'MultilineComment',
+  pattern: matchOnlyAtStart(/comment/y),
+  start_chars_hint: ['C', 'c'],
+  line_breaks: false,
+  push_mode: 'multiline_comment_mode'
+});
+
+export const MultilineCommentText = createToken({
+  name: 'MultilineCommentText',
+  pattern: /[^\r\n]+/
+});
+
+export const MultilineCommentEnd = createToken({
+  name: 'MultilineCommentEnd',
+  pattern: matchOnlyAtStart(/end comment/y, 'MC_NEWLINE'),
+  line_breaks: false,
+  push_mode: 'default_mode'
+});

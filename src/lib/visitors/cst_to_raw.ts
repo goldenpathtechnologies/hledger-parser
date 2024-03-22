@@ -55,6 +55,11 @@ class HledgerToRawVisitor extends BaseCstVisitor {
           ctx.defaultCommodityDirective[0].children
         )
       };
+    } else if (ctx.multilineComment) {
+      return {
+        type: 'multilineComment',
+        value: this.multilineComment(ctx.multilineComment[0].children)
+      };
     } else {
       return null;
     }
@@ -482,6 +487,22 @@ class HledgerToRawVisitor extends BaseCstVisitor {
         inlineComment: this.inlineComment(ctx.inlineComment[0].children)
       }
     };
+  }
+
+  multilineComment(
+    ctx: ParserTypes.MultilineCommentCstChildren
+  ): Raw.MultilineComment['value'] {
+    return (ctx.multilineCommentItem ?? []).map((m) =>
+      this.multilineCommentItem(m.children)
+    );
+  }
+
+  multilineCommentItem(
+    ctx: ParserTypes.MultilineCommentItemCstChildren
+  ): Raw.MultilineCommentItem {
+    if (ctx.MultilineCommentText) return ctx.MultilineCommentText[0].image;
+
+    return '';
   }
 }
 

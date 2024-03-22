@@ -17,7 +17,8 @@ export type JournalItem =
   | PriceDirective
   | AccountDirective
   | CommodityDirective
-  | DefaultCommodityDirective;
+  | DefaultCommodityDirective
+  | MultilineComment;
 
 /**
  * Type for a 'raw' [hledger transaction](https://hledger.org/1.26/hledger.html#transactions)
@@ -164,6 +165,11 @@ export interface DefaultCommodityDirective {
   };
 }
 
+/**
+ * Type for a 'raw' [commodity directive](https://hledger.org/1.31/hledger.html#commodity-directive)
+ * item, which can be a [format sudbdirective](https://hledger.org/1.31/hledger.html#commodity-directive)
+ * or a [comment](https://hledger.org/1.26/hledger.html#comments).
+ */
 export interface CommodityDirectiveContentLine {
   type: 'commodityDirectiveContentLine';
   value: {
@@ -172,9 +178,27 @@ export interface CommodityDirectiveContentLine {
   };
 }
 
+/**
+ * Type for a 'raw' [default commodity directive](https://hledger.org/1.31/hledger.html#d-directive)
+ * item, which can only be a [comment](https://hledger.org/1.26/hledger.html#comments).
+ */
 export interface DefaultCommodityDirectiveContentLine {
   type: 'defaultCommodityDirectiveContentLine';
   value: {
     inlineComment: InlineComment;
   };
 }
+
+/**
+ * Type for a 'raw' [multiline comment](https://hledger.org/1.31/hledger.html#comments)
+ */
+export interface MultilineComment {
+  type: 'multilineComment';
+  value: MultilineCommentItem[];
+}
+
+/**
+ * Type for a [multiline comment](https://hledger.org/1.31/hledger.html#comments) item, which
+ * represents a single line of text.
+ */
+export type MultilineCommentItem = string;

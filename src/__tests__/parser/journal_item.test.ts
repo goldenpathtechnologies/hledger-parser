@@ -11,6 +11,10 @@ import {
   HASHTAG_AT_START,
   JournalDate,
   JournalNumber,
+  MC_NEWLINE,
+  MultilineComment,
+  MultilineCommentEnd,
+  MultilineCommentText,
   NEWLINE,
   PDirective,
   PDirectiveCommodityText,
@@ -204,5 +208,37 @@ test('parses a default commodity directive', (t) => {
       ]
     },
     '<journalItem> D CAD1000.00\\n'
+  );
+});
+
+test('parses a multiline comment', (t) => {
+  t.context.lexer
+    .addToken(MultilineComment, 'comment')
+    .addToken(MC_NEWLINE, '\n')
+    .addToken(MultilineCommentText, 'This is a comment')
+    .addToken(MC_NEWLINE, '\n')
+    .addToken(MultilineCommentEnd, 'end comment')
+    .addToken(NEWLINE, '\n');
+  HLedgerParser.input = t.context.lexer.tokenize();
+
+  t.deepEqual(
+    simplifyCst(HLedgerParser.journalItem()),
+    {
+      multilineComment: [
+        {
+          MultilineComment: 1,
+          MC_NEWLINE: 1,
+          MultilineCommentEnd: 1,
+          NEWLINE: 1,
+          multilineCommentItem: [
+            {
+              MultilineCommentText: 1,
+              MC_NEWLINE: 1
+            }
+          ]
+        }
+      ]
+    },
+    '<journalItem> comment\\nThis is a comment\\nend comment\\n'
   );
 });

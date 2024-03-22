@@ -8,10 +8,13 @@ import _ from 'lodash';
 
 export const NewlineName = 'NEWLINE';
 
-export function matchOnlyAtStart(regex: RegExp) {
+export function matchOnlyAtStart(
+  regex: RegExp,
+  lineTerminatorTokenName: string = NewlineName
+) {
   const matcher: CustomPatternMatcherFunc = (text, offset, tokens) => {
     const prevToken = _.last(tokens);
-    if (offset === 0 || prevToken?.tokenType.name === NewlineName) {
+    if (offset === 0 || prevToken?.tokenType.name === lineTerminatorTokenName) {
       regex.lastIndex = offset;
       const match = regex.exec(text);
       if (match) return [match[0]];

@@ -1,6 +1,5 @@
 name: Question
 description: Submit a question about this project
-title: "[Question]: "
 labels:
   - question
 body:

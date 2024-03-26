@@ -21,6 +21,7 @@ on:
       - tsconfig.test.json
       - tsconfig.tests.module.json
       - knownissues.txt
+      - ".github/ISSUE_TEMPLATE/**"
     tags-ignore:
       - "**"
 

@@ -1,0 +1,36 @@
+name: Feature Request
+description: Submit a feature request
+title: "feat: "
+labels:
+  - enhancement
+assignees:
+  - darylwright
+body:
+  - type: markdown
+    attributes:
+      value: |-
+        Thank you for contributing to hledger-parser!
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      placeholder: Please describe the feature or request in detail
+    validations:
+      required: true
+  - type: textarea
+    id: other-info
+    attributes:
+      label: Other Information
+      placeholder: >-
+        e.g. any other information that adds context to the feature or request
+        (StackOverflow, personal fork, etc.)
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: >-
+        By submitting this issue, you agree to follow our
+        [Code of Conduct](https://github.com/goldenpathtechnologies/hledger-parser/blob/main/CODE_OF_CONDUCT.md)
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true

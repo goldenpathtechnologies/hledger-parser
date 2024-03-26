@@ -1,9 +1,9 @@
 **What kind of change does this PR introduce?**
 
-- [ ] Bug fix
-- [ ] Feature
-- [ ] Documentation
-- [ ] Other
+1. Bug fix
+2. Feature
+3. Documentation
+4. Other
 
 **What is the current behavior?** (You can also link to an open issue here)
 

@@ -1,3 +1,10 @@
+## [2.2.0](https://github.com/goldenpathtechnologies/hledger-parser/compare/v2.1.0...v2.2.0) (2024-04-16)
+
+
+### Features
+
+* implemented simple dates ([5323186](https://github.com/goldenpathtechnologies/hledger-parser/commit/5323186201278079c29d0cceafe7496c1a11719e)), closes [#12](https://github.com/goldenpathtechnologies/hledger-parser/issues/12)
+
 ## [2.1.0](https://github.com/goldenpathtechnologies/hledger-parser/compare/v2.0.1...v2.1.0) (2024-03-22)
 
 

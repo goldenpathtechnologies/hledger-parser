@@ -4,6 +4,8 @@ import * as Core from '../types';
  * Type for a 'cooked' parsed [hledger journal](https://hledger.org/1.26/hledger.html#journal-format)
  */
 export interface Journal {
+  // TODO: Figure out a way to ensure a guaranteed order of the below items.
+
   /** All [transactions](https://hledger.org/1.26/hledger.html#transactions) in the journal, order not guaranteed */
   transactions: Transaction[];
 
@@ -12,14 +14,18 @@ export interface Journal {
 
   /** All [price directives](https://hledger.org/1.26/hledger.html#market-prices) in the journal, order not guaranteed */
   prices: Price[];
+
+  // TODO: Add all commodity directives here.
+  //  /** All [commodity directives](https://hledger.org/1.31/hledger.html#commodity-directive) in the journal, order not guaranteed */
+  //  commodities: Commodity[];
 }
 
 /**
  * Type for a single [hledger transaction](https://hledger.org/1.26/hledger.html#transactions)
  */
 export interface Transaction {
-  date: Core.Date;
-  postingDate?: Core.Date;
+  date: Core.SimpleDate;
+  postingDate?: Core.SimpleDate;
   status: Core.StatusIndicator;
   chequeNumber?: string;
   description: Core.TxnDescription;
@@ -45,7 +51,7 @@ export interface Account {
  * Type for a cooked [price directive](https://hledger.org/1.26/hledger.html#market-prices)
  */
 export interface Price {
-  date: Core.Date;
+  date: Core.SimpleDate;
   commodity: string;
   price: Core.Amount;
 }

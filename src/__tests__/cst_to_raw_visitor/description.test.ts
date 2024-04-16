@@ -15,7 +15,7 @@ test('returns a transaction object with a description', (t) => {
   );
   t.is(result[0].type, 'transaction', 'should be a transaction object');
   t.is(
-    (result[0] as Raw.Transaction).value.description,
+    (result[0] as Raw.Transaction).value.initLine.description,
     'description',
     'should contain a transaction posting line with a description'
   );
@@ -32,7 +32,7 @@ test('returns a transaction object with a description and memo', (t) => {
   );
   t.is(result[0].type, 'transaction', 'should be a transaction object');
   t.deepEqual(
-    (result[0] as Raw.Transaction).value.description,
+    (result[0] as Raw.Transaction).value.initLine.description,
     {
       payee: 'payee',
       memo: 'memo'
@@ -53,7 +53,7 @@ test('returns a transaction object with a description and memo containing pipe c
   );
   t.is(result[0].type, 'transaction', 'should be a transaction object');
   t.deepEqual(
-    (result[0] as Raw.Transaction).value.description,
+    (result[0] as Raw.Transaction).value.initLine.description,
     {
       payee: 'payee',
       memo: 'memo | note | text'

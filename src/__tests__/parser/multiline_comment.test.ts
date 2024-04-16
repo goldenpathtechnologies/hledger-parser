@@ -166,21 +166,6 @@ test("parses a multiline comment containing the text 'end comment'", (t) => {
   );
 });
 
-// TODO: This test is invalid if we allow for EOF terminations.
-// test('does not parse a multiline comment unless terminated', (t) => {
-//   t.context.lexer
-//     .addToken(MultilineComment, 'comment')
-//     .addToken(MC_NEWLINE, '\n')
-//     .addToken(MultilineCommentText, 'a comment')
-//     .addToken(MC_NEWLINE, '\n');
-//   HLedgerParser.input = t.context.lexer.tokenize();
-//
-//   t.falsy(
-//     HLedgerParser.multilineComment(),
-//     '<multilineComment!> comment\\na comment\\n'
-//   );
-// });
-
 test('does not parse a multiline comment unless newline comes after terminator', (t) => {
   t.context.lexer
     .addToken(MultilineComment, 'comment')

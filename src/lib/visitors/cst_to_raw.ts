@@ -1,5 +1,5 @@
 import HLedgerParser from '../parser';
-import { notEmpty } from '../type_utils';
+import { notEmpty, toSimpleDate } from '../type_utils';
 
 import type * as Raw from './raw_types';
 import type * as ParserTypes from '../hledger_cst';
@@ -99,20 +99,16 @@ class HledgerToRawVisitor extends BaseCstVisitor {
   transaction(
     ctx: ParserTypes.TransactionCstChildren
   ): Raw.Transaction['value'] {
-    const { date, postingDate, description, status, chequeNumber, comment } =
-      this.transactionInitLine(ctx.transactionInitLine[0].children);
+    const initLine = this.transactionInitLine(
+      ctx.transactionInitLine[0].children
+    );
     const contentLines =
       ctx.transactionContentLine
         ?.map((p) => this.transactionContentLine(p.children))
         ?.filter(notEmpty) ?? [];
 
     return {
-      date,
-      postingDate,
-      description,
-      status,
-      chequeNumber,
-      comment,
+      initLine,
       contentLines
     };
   }
@@ -121,7 +117,8 @@ class HledgerToRawVisitor extends BaseCstVisitor {
     ctx: ParserTypes.PriceDirectiveCstChildren
   ): Raw.PriceDirective['value'] {
     return {
-      date: ctx.Date[0].image,
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      date: toSimpleDate(ctx.SimpleDate[0].image)!,
       commodity: ctx.PDirectiveCommodityText[0].payload as string,
       price: this.amount(ctx.amount[0].children)
     };
@@ -155,29 +152,26 @@ class HledgerToRawVisitor extends BaseCstVisitor {
   transactionInitLine(
     ctx: ParserTypes.TransactionInitLineCstChildren
   ): Raw.TransactionInitLine {
-    const { date, postingDate } = this.transactionDate(
-      ctx.transactionDate[0].children
-    );
+    const date = this.transactionDate(ctx.transactionDate[0].children);
     const chequeNumber = ctx.chequeNumber
       ? this.chequeNumber(ctx.chequeNumber[0].children)
-      : null;
+      : undefined;
     const status = ctx.statusIndicator
       ? this.statusIndicator(ctx.statusIndicator[0].children)
-      : null;
+      : undefined;
     const comment = ctx.inlineComment
       ? this.inlineComment(ctx.inlineComment[0].children)
-      : null;
+      : undefined;
     const description = ctx.description
       ? this.description(ctx.description[0].children)
-      : null;
+      : undefined;
 
     return {
       date,
-      postingDate,
       description: description ?? '',
       status: status ?? 'unmarked',
-      chequeNumber: chequeNumber ?? undefined,
-      comment: comment ?? undefined
+      chequeNumber,
+      comment
     };
   }
 
@@ -225,8 +219,9 @@ class HledgerToRawVisitor extends BaseCstVisitor {
   transactionDate(
     ctx: ParserTypes.TransactionDateCstChildren
   ): Raw.TransactionDate {
-    const date = ctx.DateAtStart[0].image;
-    const postingDate = ctx.Date?.[0].image;
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const date = toSimpleDate(ctx.DateAtStart[0].image)!;
+    const postingDate = toSimpleDate(ctx.SimpleDate?.[0].image ?? '');
 
     return { date, postingDate };
   }
@@ -326,7 +321,7 @@ class HledgerToRawVisitor extends BaseCstVisitor {
 
   statusIndicator(
     ctx: ParserTypes.StatusIndicatorCstChildren
-  ): Core.StatusIndicator | null {
+  ): Core.StatusIndicator {
     // Know from examining the parser that ctx.PostingStatus will exist if TxnStatusIndicator does not
     const tokenText = (
       ctx.TxnStatusIndicator
@@ -345,7 +340,7 @@ class HledgerToRawVisitor extends BaseCstVisitor {
 
   chequeNumber(
     ctx: ParserTypes.ChequeNumberCstChildren
-  ): Raw.TransactionInitLine['chequeNumber'] | null {
+  ): Raw.TransactionInitLine['chequeNumber'] {
     return ctx.ParenValue[0].payload as string;
   }
 

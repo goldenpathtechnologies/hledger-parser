@@ -21,7 +21,6 @@ import {
   InlineCommentTagName,
   InlineCommentTagValue,
   InlineCommentText,
-  JournalDate,
   JournalNumber,
   LPAREN,
   MC_NEWLINE,
@@ -41,6 +40,7 @@ import {
   RPAREN,
   SEMICOLON_AT_START,
   SemicolonComment,
+  SimpleDate,
   SINGLE_WS,
   Text,
   TxnStatusIndicator,
@@ -127,7 +127,7 @@ export const txn_line_mode = [
   SINGLE_WS,
   NEWLINE,
   EQUALS,
-  JournalDate,
+  SimpleDate,
   PIPE,
   ParenValue,
   TxnStatusIndicator,
@@ -135,7 +135,7 @@ export const txn_line_mode = [
   Text
 ];
 
-export const price_mode = [SINGLE_WS, JournalDate, PDirectiveCommodityText];
+export const price_mode = [SINGLE_WS, SimpleDate, PDirectiveCommodityText];
 
 export const price_amounts_mode = [
   AMOUNT_WS,

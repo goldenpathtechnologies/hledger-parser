@@ -8,6 +8,7 @@ import {
   matchOnlyAtStart,
   matchParenValue,
   matchPriceCommodityText,
+  matchSimpleDate,
   matchTagColon,
   NewlineName
 } from './lexer_utils';
@@ -60,9 +61,9 @@ export const RPAREN = createToken({ name: 'RPAREN', pattern: ')' });
 export const LBRACKET = createToken({ name: 'LBRACKET', pattern: '[' });
 export const RBRACKET = createToken({ name: 'RBRACKET', pattern: ']' });
 
-export const JournalDate = createToken({
-  name: 'Date',
-  pattern: /([0-9]{4}[-./])?[0-9]{1,2}[-./][0-9]{1,2}/y,
+export const SimpleDate = createToken({
+  name: 'SimpleDate',
+  pattern: matchSimpleDate(),
   line_breaks: false,
   start_chars_hint: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 });
@@ -211,7 +212,7 @@ export const PostingStatusIndicator = createToken({
 
 export const DateAtStart = createToken({
   name: 'DateAtStart',
-  pattern: matchOnlyAtStart(/([0-9]{4}[-./])?[0-9]{1,2}[-./][0-9]{1,2}/y),
+  pattern: matchSimpleDate(true),
   line_breaks: false,
   start_chars_hint: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
   push_mode: 'txn_line_mode'
@@ -219,7 +220,7 @@ export const DateAtStart = createToken({
 
 export const TxnStatusIndicator = createToken({
   name: 'TxnStatusIndicator',
-  pattern: matchOnlyAfter(/[*!]/y, [JournalDate, DateAtStart]),
+  pattern: matchOnlyAfter(/[*!]/y, [SimpleDate, DateAtStart]),
   start_chars_hint: ['!', '*'],
   line_breaks: false
 });

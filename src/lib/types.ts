@@ -1,12 +1,15 @@
 export type StatusIndicator = 'cleared' | 'pending' | 'unmarked';
 
+export type DateDelimiter = '-' | '/' | '.';
+
 /**
  * Type representing a [hledger simple date](https://hledger.org/1.26/hledger.html#simple-dates)
  */
-export interface Date {
-  y: number;
-  m: number;
-  d: number;
+export interface SimpleDate {
+  year?: string;
+  month: string;
+  day: string;
+  delimiter: DateDelimiter;
 }
 
 /**

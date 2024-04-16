@@ -129,6 +129,11 @@ const tests = [
     expected: ['DateAtStart', 'Text', 'PIPE', 'Memo'],
     title:
       'recognize a transaction with a payee note containing pipe characters'
+  },
+  {
+    pattern: '2023-02-29 Invalid transaction',
+    expected: [],
+    title: 'does not recognize an invalid transaction date'
   }
 ];
 

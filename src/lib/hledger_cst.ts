@@ -87,7 +87,7 @@ export interface PriceDirectiveCstNode extends CstNode {
 
 export type PriceDirectiveCstChildren = {
   PDirective: IToken[];
-  Date: IToken[];
+  SimpleDate: IToken[];
   PDirectiveCommodityText: IToken[];
   amount: AmountCstNode[];
   NEWLINE: IToken[];
@@ -166,7 +166,7 @@ export interface TransactionDateCstNode extends CstNode {
 export type TransactionDateCstChildren = {
   DateAtStart: IToken[];
   EQUALS?: IToken[];
-  Date?: IToken[];
+  SimpleDate?: IToken[];
 };
 
 export interface AccountCstNode extends CstNode {

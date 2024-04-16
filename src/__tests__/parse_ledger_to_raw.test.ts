@@ -58,8 +58,6 @@ test('correctly parses a properly formatted hledger journal', (t) => {
     'accountDirective',
     'should have an accountDirective as the 3rd element'
   );
-  // TODO: Note that there must be two spaces between the account name in an account
-  //  directive and an inline comment. See: https://hledger.org/1.31/hledger.html#account-comments
   t.is(
     result.rawJournal[3].type,
     'accountDirective',

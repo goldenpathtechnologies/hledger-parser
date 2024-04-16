@@ -18,7 +18,7 @@ test('returns a transaction object containing a transaction code (cheque number)
   );
   t.is(result[0].type, 'transaction', 'should be a transaction object');
   t.is(
-    (result[0] as Raw.Transaction).value.chequeNumber,
+    (result[0] as Raw.Transaction).value.initLine.chequeNumber,
     '#443',
     'should contain a transaction posting line with a cheque number'
   );

@@ -10,13 +10,18 @@ test('returns a transaction object containing only a date', (t) => {
   );
   t.is(result.length, 1, 'should modify a transaction simple date');
   t.is(result[0].type, 'transaction', 'should be a transaction object');
-  t.is(
-    (result[0] as Raw.Transaction).value.date,
-    '1900/01/01',
+  t.deepEqual(
+    (result[0] as Raw.Transaction).value.initLine.date.date,
+    {
+      year: '1900',
+      month: '01',
+      day: '01',
+      delimiter: '/'
+    },
     'should contain a transaction simple date'
   );
   t.falsy(
-    (result[0] as Raw.Transaction).value.postingDate,
+    (result[0] as Raw.Transaction).value.initLine.date.postingDate,
     'should not contain a transaction posting date'
   );
 });
@@ -31,14 +36,24 @@ test('returns a transaction object containing only a date and posting date', (t)
     'should modify a transaction with a simple date and a posting date'
   );
   t.is(result[0].type, 'transaction', 'should be a transaction object');
-  t.is(
-    (result[0] as Raw.Transaction).value.date,
-    '1900/01/01',
+  t.deepEqual(
+    (result[0] as Raw.Transaction).value.initLine.date.date,
+    {
+      year: '1900',
+      month: '01',
+      day: '01',
+      delimiter: '/'
+    },
     'should contain a transaction simple date'
   );
-  t.is(
-    (result[0] as Raw.Transaction).value.postingDate,
-    '2020/02/02',
+  t.deepEqual(
+    (result[0] as Raw.Transaction).value.initLine.date.postingDate,
+    {
+      year: '2020',
+      month: '02',
+      day: '02',
+      delimiter: '/'
+    },
     'should contain a transaction posting date'
   );
 });

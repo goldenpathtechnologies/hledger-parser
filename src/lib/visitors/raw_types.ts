@@ -1,4 +1,3 @@
-import { CommodityAmount } from '../types';
 import * as Core from '../types';
 
 /**
@@ -26,12 +25,7 @@ export type JournalItem =
 export interface Transaction {
   type: 'transaction';
   value: {
-    date: string;
-    postingDate?: string;
-    status: Core.StatusIndicator;
-    chequeNumber?: string;
-    description: Core.TxnDescription;
-    comment?: InlineComment;
+    initLine: TransactionInitLine;
     contentLines: TransactionItem[];
   };
 }
@@ -40,8 +34,7 @@ export interface Transaction {
  * Type for the initialization line of a [hledger transaction](https://hledger.org/1.26/hledger.html#transactions)
  */
 export interface TransactionInitLine {
-  date: string;
-  postingDate?: string;
+  date: TransactionDate;
   description: Core.TxnDescription;
   status: Core.StatusIndicator;
   chequeNumber?: string;
@@ -53,8 +46,8 @@ export interface TransactionInitLine {
  * optional [posting date](https://hledger.org/1.26/hledger.html#secondary-dates)
  */
 export interface TransactionDate {
-  date: string;
-  postingDate?: string;
+  date: Core.SimpleDate;
+  postingDate?: Core.SimpleDate;
 }
 
 /**
@@ -106,7 +99,7 @@ export interface Tag {
 export interface PriceDirective {
   type: 'priceDirective';
   value: {
-    date: string;
+    date: Core.SimpleDate;
     commodity: string;
     price: Core.Amount;
   };
@@ -137,7 +130,7 @@ export interface CommodityDirective {
   type: 'commodityDirective';
   value: {
     commodity?: string;
-    format?: CommodityAmount;
+    format?: Core.CommodityAmount;
     comments?: InlineComment;
     contentLines: CommodityDirectiveContentLine[];
   };
@@ -159,7 +152,7 @@ export interface FormatSubdirective {
 export interface DefaultCommodityDirective {
   type: 'defaultCommodityDirective';
   value: {
-    format: CommodityAmount;
+    format: Core.CommodityAmount;
     comments?: InlineComment;
     contentLines: DefaultCommodityDirectiveContentLine[];
   };

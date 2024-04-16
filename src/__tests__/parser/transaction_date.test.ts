@@ -1,6 +1,6 @@
 import anyTest, { TestFn } from 'ava';
 
-import { DateAtStart, EQUALS, JournalDate } from '../../lib/lexer/tokens';
+import { DateAtStart, EQUALS, SimpleDate } from '../../lib/lexer/tokens';
 import HLedgerParser from '../../lib/parser';
 import { MockLexer, simplifyCst } from '../utils';
 
@@ -29,7 +29,7 @@ test('parses a transaction date with a posting date', (t) => {
   t.context.lexer
     .addToken(DateAtStart, '1900/01/01')
     .addToken(EQUALS, '=')
-    .addToken(JournalDate, '1901/02/02');
+    .addToken(SimpleDate, '1901/02/02');
   HLedgerParser.input = t.context.lexer.tokenize();
 
   t.deepEqual(
@@ -37,14 +37,14 @@ test('parses a transaction date with a posting date', (t) => {
     {
       DateAtStart: 1,
       EQUALS: 1,
-      Date: 1
+      SimpleDate: 1
     },
     '<transactionDate> 1900/01/01=1901/02/02'
   );
 });
 
 test('does not parse a transaction date if not at start of line', (t) => {
-  t.context.lexer.addToken(JournalDate, '1900/03/03');
+  t.context.lexer.addToken(SimpleDate, '1900/03/03');
   HLedgerParser.input = t.context.lexer.tokenize();
 
   t.falsy(HLedgerParser.transactionDate(), '<transactionDate!> 1900/03/03');

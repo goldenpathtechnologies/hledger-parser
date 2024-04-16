@@ -4,10 +4,10 @@ import {
   DateAtStart,
   INDENT,
   InlineCommentText,
-  JournalDate,
   NEWLINE,
   RealAccountName,
   SemicolonComment,
+  SimpleDate,
   Text
 } from '../../lib/lexer/tokens';
 import HLedgerParser from '../../lib/parser';
@@ -165,9 +165,9 @@ test('parses a transaction containing one posting without an amount and an inlin
   );
 });
 
-test('does not parse a transaction with incorrect Date token', (t) => {
+test('does not parse a transaction with incorrect SimpleDate token', (t) => {
   t.context.lexer
-    .addToken(JournalDate, '1900/03/03')
+    .addToken(SimpleDate, '1900/03/03')
     .addToken(Text, 'a description')
     .addToken(NEWLINE, '\n');
   HLedgerParser.input = t.context.lexer.tokenize();

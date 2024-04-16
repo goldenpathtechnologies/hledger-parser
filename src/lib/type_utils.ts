@@ -1,5 +1,7 @@
 //import { PayeeMemo, TxnDescription } from './types';
 
+import type * as Core from './types';
+
 /**
  * Utility method to filter null and undefined values from an array and
  * return the correct type
@@ -22,3 +24,19 @@ export function notEmpty<TValue>(
   );
 }
 */
+
+export function toSimpleDate(date: string): Core.SimpleDate | undefined {
+  const pattern = /((\d{4,5})([-/.]))?(\d{1,2})([-/.])(\d{1,2})/;
+
+  if (!pattern.test(date)) return undefined;
+
+  const [, , year, delim1, month, delim2, day] = pattern.exec(date) ?? [];
+  const delimiter = (!delim1 ? delim2 : delim1) as Core.DateDelimiter;
+
+  return {
+    year,
+    month,
+    day,
+    delimiter
+  };
+}

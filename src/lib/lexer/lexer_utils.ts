@@ -5,6 +5,7 @@ import {
   TokenType
 } from 'chevrotain';
 import _ from 'lodash';
+import { DateTime } from 'luxon';
 
 export const NewlineName = 'NEWLINE';
 
@@ -156,3 +157,48 @@ export const matchTagColon: CustomPatternMatcherFunc = (text, offset) => {
 
   return null;
 };
+
+export function matchSimpleDate(matchOnlyAtStart = false) {
+  const isValidDate = (date: string, delimiter: string) => {
+    const dateParts = date.split(delimiter).map((d) => parseInt(d, 10));
+    const [year, month, day] =
+      dateParts.length === 3
+        ? dateParts
+        : [Number.MIN_SAFE_INTEGER, ...dateParts];
+    const dateObject =
+      year !== Number.MIN_SAFE_INTEGER ? { year, month, day } : { month, day };
+    const dateTimeObject = DateTime.fromObject(dateObject);
+
+    return dateTimeObject.isValid;
+  };
+
+  const matcher: CustomPatternMatcherFunc = (text, offset, tokens) => {
+    const prevToken = _.last(tokens);
+
+    if (
+      matchOnlyAtStart &&
+      !(offset === 0 || prevToken?.tokenType.name === NewlineName)
+    )
+      return null;
+
+    const simpleDatePatterns = [
+      { pattern: /(\d{4,5}-)?\d{1,2}-\d{1,2}/y, delimiter: '-' },
+      { pattern: /(\d{4,5}\/)?\d{1,2}\/\d{1,2}/y, delimiter: '/' },
+      { pattern: /(\d{4,5}\.)?\d{1,2}\.\d{1,2}/y, delimiter: '.' }
+    ];
+
+    for (const { pattern, delimiter } of simpleDatePatterns) {
+      pattern.lastIndex = offset;
+
+      const match = pattern.exec(text);
+
+      if (!match) continue;
+
+      return isValidDate(match[0], delimiter) ? [match[0]] : null;
+    }
+
+    return null;
+  };
+
+  return matcher;
+}

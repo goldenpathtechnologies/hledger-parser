@@ -24,7 +24,6 @@ import {
   InlineCommentTagName,
   InlineCommentTagValue,
   InlineCommentText,
-  JournalDate,
   JournalNumber,
   LPAREN,
   MC_NEWLINE,
@@ -43,6 +42,7 @@ import {
   RPAREN,
   SEMICOLON_AT_START,
   SemicolonComment,
+  SimpleDate,
   Text,
   TxnStatusIndicator,
   VirtualAccountName,
@@ -114,7 +114,7 @@ class HLedgerParser extends CstParser {
 
   public priceDirective = this.RULE('priceDirective', () => {
     this.CONSUME(PDirective);
-    this.CONSUME(JournalDate);
+    this.CONSUME(SimpleDate);
     this.CONSUME(PDirectiveCommodityText);
     this.SUBRULE(this.amount);
     this.CONSUME(NEWLINE); // TODO: There is support for inline comments prior to NEWLINE.
@@ -193,7 +193,7 @@ class HLedgerParser extends CstParser {
     this.CONSUME(DateAtStart);
     this.OPTION(() => {
       this.CONSUME(EQUALS);
-      this.CONSUME(JournalDate);
+      this.CONSUME(SimpleDate);
     });
   });
 

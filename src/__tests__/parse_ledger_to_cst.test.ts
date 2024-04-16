@@ -56,4 +56,20 @@ test('does not lex journal items that are not newline terminated', (t) => {
   t.is(result3.parseErrors.length, 1, 'should return parser errors that occur');
 });
 
+test('does not lex a transaction with an invalid date', (t) => {
+  const results = [
+    parseLedgerToCST('2019.02.29 transaction\n'),
+    parseLedgerToCST('2024/04/31 transaction\n'),
+    parseLedgerToCST('2024-13-01 smarch transaction\n')
+  ];
+
+  for (const result of results) {
+    t.is(
+      result.lexErrors.length,
+      1,
+      'should return lexer error on invalid transaction date'
+    );
+  }
+});
+
 // TODO: May have to write a test for journal items that are EOF terminated.

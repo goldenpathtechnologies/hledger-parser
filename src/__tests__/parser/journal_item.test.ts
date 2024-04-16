@@ -9,7 +9,6 @@ import {
   DateAtStart,
   DefaultCommodityDirective,
   HASHTAG_AT_START,
-  JournalDate,
   JournalNumber,
   MC_NEWLINE,
   MultilineComment,
@@ -18,7 +17,8 @@ import {
   NEWLINE,
   PDirective,
   PDirectiveCommodityText,
-  SemicolonComment
+  SemicolonComment,
+  SimpleDate
 } from '../../lib/lexer/tokens';
 import HLedgerParser from '../../lib/parser';
 import { MockLexer, simplifyCst } from '../utils';
@@ -82,7 +82,7 @@ test('parses a hash tag full line comment', (t) => {
 test('parses a price directive', (t) => {
   t.context.lexer
     .addToken(PDirective, 'P')
-    .addToken(JournalDate, '2000/01/02')
+    .addToken(SimpleDate, '2000/01/02')
     .addToken(PDirectiveCommodityText, '€')
     .addToken(CommodityText, '$')
     .addToken(JournalNumber, '1.50')
@@ -95,7 +95,7 @@ test('parses a price directive', (t) => {
       priceDirective: [
         {
           PDirective: 1,
-          Date: 1,
+          SimpleDate: 1,
           PDirectiveCommodityText: 1,
           NEWLINE: 1,
           amount: [
@@ -134,7 +134,7 @@ test('parses an account directive', (t) => {
 });
 
 test('does not parse a transaction init line without newline termination', (t) => {
-  t.context.lexer.addToken(JournalDate, '1900/03/03');
+  t.context.lexer.addToken(SimpleDate, '1900/03/03');
   HLedgerParser.input = t.context.lexer.tokenize();
 
   t.falsy(

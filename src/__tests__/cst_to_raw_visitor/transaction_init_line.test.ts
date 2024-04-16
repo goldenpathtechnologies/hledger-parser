@@ -13,13 +13,22 @@ test('returns a transaction object containing only a date', (t) => {
   t.deepEqual(
     (result[0] as Raw.Transaction).value,
     {
-      date: '1900/01/01',
-      postingDate: undefined,
-      chequeNumber: undefined,
-      status: 'unmarked',
-      description: '',
-      contentLines: [],
-      comment: undefined
+      initLine: {
+        date: {
+          date: {
+            year: '1900',
+            month: '01',
+            day: '01',
+            delimiter: '/'
+          },
+          postingDate: undefined
+        },
+        description: '',
+        status: 'unmarked',
+        comment: undefined,
+        chequeNumber: undefined
+      },
+      contentLines: []
     },
     'should contain only a date'
   );
@@ -38,13 +47,22 @@ test('returns a transaction object containing only a date and description', (t) 
   t.deepEqual(
     (result[0] as Raw.Transaction).value,
     {
-      date: '1900/01/01',
-      postingDate: undefined,
-      chequeNumber: undefined,
-      status: 'unmarked',
-      description: 'description',
-      contentLines: [],
-      comment: undefined
+      initLine: {
+        date: {
+          date: {
+            year: '1900',
+            month: '01',
+            day: '01',
+            delimiter: '/'
+          },
+          postingDate: undefined
+        },
+        chequeNumber: undefined,
+        status: 'unmarked',
+        description: 'description',
+        comment: undefined
+      },
+      contentLines: []
     },
     'should contain only a date and a description'
   );
@@ -63,13 +81,22 @@ test('returns a transaction object containing only a date, code, and description
   t.deepEqual(
     (result[0] as Raw.Transaction).value,
     {
-      date: '1900/01/01',
-      postingDate: undefined,
-      chequeNumber: '#443',
-      status: 'unmarked',
-      description: 'description',
-      contentLines: [],
-      comment: undefined
+      initLine: {
+        date: {
+          date: {
+            year: '1900',
+            month: '01',
+            day: '01',
+            delimiter: '/'
+          },
+          postingDate: undefined
+        },
+        chequeNumber: '#443',
+        status: 'unmarked',
+        description: 'description',
+        comment: undefined
+      },
+      contentLines: []
     },
     'should contain only a cheque number and a description'
   );
@@ -88,13 +115,22 @@ test('returns a transaction object containing only a date, status, and descripti
   t.deepEqual(
     (result[0] as Raw.Transaction).value,
     {
-      date: '1900/01/01',
-      postingDate: undefined,
-      chequeNumber: undefined,
-      status: 'cleared',
-      description: 'description',
-      contentLines: [],
-      comment: undefined
+      initLine: {
+        date: {
+          date: {
+            year: '1900',
+            month: '01',
+            day: '01',
+            delimiter: '/'
+          },
+          postingDate: undefined
+        },
+        chequeNumber: undefined,
+        status: 'cleared',
+        description: 'description',
+        comment: undefined
+      },
+      contentLines: []
     },
     'should contain only a status indicator and a description'
   );
@@ -113,13 +149,22 @@ test('returns a transaction object containing only a date and a comment', (t) =>
   t.deepEqual(
     (result[0] as Raw.Transaction).value,
     {
-      date: '1900/01/01',
-      postingDate: undefined,
-      chequeNumber: undefined,
-      status: 'unmarked',
-      description: '',
-      contentLines: [],
-      comment: { type: 'inlineComment', value: ['comment'] }
+      initLine: {
+        date: {
+          date: {
+            year: '1900',
+            month: '01',
+            day: '01',
+            delimiter: '/'
+          },
+          postingDate: undefined
+        },
+        chequeNumber: undefined,
+        status: 'unmarked',
+        description: '',
+        comment: { type: 'inlineComment', value: ['comment'] }
+      },
+      contentLines: []
     },
     'should contain only a comment and a description'
   );
@@ -138,13 +183,27 @@ test('returns a transaction object containing only a date, posting date, and des
   t.deepEqual(
     (result[0] as Raw.Transaction).value,
     {
-      date: '1900/01/01',
-      postingDate: '2020/01/02',
-      chequeNumber: undefined,
-      status: 'unmarked',
-      description: 'description',
-      contentLines: [],
-      comment: undefined
+      initLine: {
+        date: {
+          date: {
+            year: '1900',
+            month: '01',
+            day: '01',
+            delimiter: '/'
+          },
+          postingDate: {
+            year: '2020',
+            month: '01',
+            day: '02',
+            delimiter: '/'
+          }
+        },
+        chequeNumber: undefined,
+        status: 'unmarked',
+        description: 'description',
+        comment: undefined
+      },
+      contentLines: []
     },
     'should contain only a posting date and a description'
   );

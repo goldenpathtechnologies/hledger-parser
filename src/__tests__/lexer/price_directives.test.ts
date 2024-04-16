@@ -7,7 +7,7 @@ const tests = [
     pattern: 'P 1900/01/01 $ 1 CAD',
     expected: [
       'PDirective',
-      'Date',
+      'SimpleDate',
       { PDirectiveCommodityText: '$' },
       'Number',
       'AMOUNT_WS',
@@ -19,7 +19,7 @@ const tests = [
     pattern: 'P 1900/01/01 $US 1 CAD',
     expected: [
       'PDirective',
-      'Date',
+      'SimpleDate',
       { PDirectiveCommodityText: '$US' },
       'Number',
       'AMOUNT_WS',
@@ -32,7 +32,7 @@ const tests = [
     pattern: 'P 1900/01/01 USD $1',
     expected: [
       'PDirective',
-      'Date',
+      'SimpleDate',
       { PDirectiveCommodityText: 'USD' },
       { CommodityText: '$' },
       'Number'
@@ -43,7 +43,7 @@ const tests = [
     pattern: 'P 1900/01/01 USD -$1',
     expected: [
       'PDirective',
-      'Date',
+      'SimpleDate',
       { PDirectiveCommodityText: 'USD' },
       'DASH',
       { CommodityText: '$' },
@@ -56,7 +56,7 @@ const tests = [
     pattern: 'P 1900/01/01 USD +$1',
     expected: [
       'PDirective',
-      'Date',
+      'SimpleDate',
       { PDirectiveCommodityText: 'USD' },
       'PLUS',
       { CommodityText: '$' },
@@ -69,7 +69,7 @@ const tests = [
     pattern: 'P 1900/01/01 USD $1.199',
     expected: [
       'PDirective',
-      'Date',
+      'SimpleDate',
       { PDirectiveCommodityText: 'USD' },
       { CommodityText: '$' },
       'Number'
@@ -80,7 +80,7 @@ const tests = [
     pattern: 'P 1900/01/01 USD $1,199',
     expected: [
       'PDirective',
-      'Date',
+      'SimpleDate',
       { PDirectiveCommodityText: 'USD' },
       { CommodityText: '$' },
       'Number'
@@ -91,7 +91,7 @@ const tests = [
     pattern: 'P 1900/01/01 USD $1,199.02',
     expected: [
       'PDirective',
-      'Date',
+      'SimpleDate',
       { PDirectiveCommodityText: 'USD' },
       { CommodityText: '$' },
       'Number'
@@ -102,7 +102,7 @@ const tests = [
     pattern: 'P 01/01 USD $1,199.02',
     expected: [
       'PDirective',
-      'Date',
+      'SimpleDate',
       { PDirectiveCommodityText: 'USD' },
       { CommodityText: '$' },
       'Number'
@@ -113,7 +113,7 @@ const tests = [
     pattern: 'P 1900/1/01 USD $1,199.02',
     expected: [
       'PDirective',
-      'Date',
+      'SimpleDate',
       { PDirectiveCommodityText: 'USD' },
       { CommodityText: '$' },
       'Number'
@@ -124,7 +124,7 @@ const tests = [
     pattern: 'P 1900/01/1 USD $1,199.02',
     expected: [
       'PDirective',
-      'Date',
+      'SimpleDate',
       { PDirectiveCommodityText: 'USD' },
       { CommodityText: '$' },
       'Number'

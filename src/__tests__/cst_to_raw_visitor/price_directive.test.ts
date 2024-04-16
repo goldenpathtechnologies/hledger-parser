@@ -17,7 +17,12 @@ test('returns a price directive object', (t) => {
   t.deepEqual(
     (result[0] as Raw.PriceDirective).value,
     {
-      date: '1900/01/01',
+      date: {
+        year: '1900',
+        month: '01',
+        day: '01',
+        delimiter: '/'
+      },
       commodity: '$',
       price: {
         number: '10',

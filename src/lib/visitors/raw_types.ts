@@ -17,7 +17,8 @@ export type JournalItem =
   | AccountDirective
   | CommodityDirective
   | DefaultCommodityDirective
-  | MultilineComment;
+  | MultilineComment
+  | YearDirective;
 
 /**
  * Type for a 'raw' [hledger transaction](https://hledger.org/1.26/hledger.html#transactions)
@@ -195,3 +196,26 @@ export interface MultilineComment {
  * represents a single line of text.
  */
 export type MultilineCommentItem = string;
+
+/**
+ * Type for a 'raw' [year directive](https://hledger.org/1.31/hledger.html#y-directive)
+ */
+export interface YearDirective {
+  type: 'yearDirective';
+  value: {
+    year: string;
+    comments?: InlineComment;
+    contentLines: YearDirectiveContentLine[];
+  };
+}
+
+/**
+ * Type for a [year directive](https://hledger.org/1.31/hledger.html#y-directive) item,
+ * which can only be a [comment](https://hledger.org/1.26/hledger.html#comments).
+ */
+export interface YearDirectiveContentLine {
+  type: 'yearDirectiveContentLine';
+  value: {
+    inlineComment: InlineComment;
+  };
+}

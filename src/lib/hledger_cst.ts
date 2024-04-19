@@ -67,6 +67,7 @@ export type JournalItemCstChildren = {
   commodityDirective?: CommodityDirectiveCstNode[];
   defaultCommodityDirective?: DefaultCommodityDirectiveCstNode[];
   multilineComment?: MultilineCommentCstNode[];
+  yearDirective?: YearDirectiveCstNode[];
   NEWLINE?: IToken[];
 };
 
@@ -346,6 +347,30 @@ export type MultilineCommentItemCstChildren = {
   EOF?: (IToken)[];
 };
 
+export interface YearDirectiveCstNode extends CstNode {
+  name: "yearDirective";
+  children: YearDirectiveCstChildren;
+}
+
+export type YearDirectiveCstChildren = {
+  YearDirective: IToken[];
+  YearDirectiveValue: IToken[];
+  inlineComment?: InlineCommentCstNode[];
+  NEWLINE: IToken[];
+  yearDirectiveContentLine?: YearDirectiveContentLineCstNode[];
+};
+
+export interface YearDirectiveContentLineCstNode extends CstNode {
+  name: "yearDirectiveContentLine";
+  children: YearDirectiveContentLineCstChildren;
+}
+
+export type YearDirectiveContentLineCstChildren = {
+  INDENT: IToken[];
+  inlineComment: InlineCommentCstNode[];
+  NEWLINE: IToken[];
+};
+
 export interface ICstNodeVisitor<IN, OUT> extends ICstVisitor<IN, OUT> {
   lineComment(children: LineCommentCstChildren, param?: IN): OUT;
   inlineComment(children: InlineCommentCstChildren, param?: IN): OUT;
@@ -376,4 +401,6 @@ export interface ICstNodeVisitor<IN, OUT> extends ICstVisitor<IN, OUT> {
   defaultCommodityDirectiveContentLine(children: DefaultCommodityDirectiveContentLineCstChildren, param?: IN): OUT;
   multilineComment(children: MultilineCommentCstChildren, param?: IN): OUT;
   multilineCommentItem(children: MultilineCommentItemCstChildren, param?: IN): OUT;
+  yearDirective(children: YearDirectiveCstChildren, param?: IN): OUT;
+  yearDirectiveContentLine(children: YearDirectiveContentLineCstChildren, param?: IN): OUT;
 }

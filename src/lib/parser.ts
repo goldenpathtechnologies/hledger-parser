@@ -46,7 +46,9 @@ import {
   Text,
   TxnStatusIndicator,
   VirtualAccountName,
-  VirtualBalancedAccountName
+  VirtualBalancedAccountName,
+  YearDirective,
+  YearDirectiveValue
 } from './lexer/tokens';
 
 class HLedgerParser extends CstParser {
@@ -101,6 +103,7 @@ class HLedgerParser extends CstParser {
       { ALT: () => this.SUBRULE(this.commodityDirective) },
       { ALT: () => this.SUBRULE(this.defaultCommodityDirective) },
       { ALT: () => this.SUBRULE(this.multilineComment) },
+      { ALT: () => this.SUBRULE(this.yearDirective) },
       { ALT: () => this.CONSUME(NEWLINE) }
     ]);
   });
@@ -459,6 +462,25 @@ class HLedgerParser extends CstParser {
       }
     ]);
   });
+
+  public yearDirective = this.RULE('yearDirective', () => {
+    this.CONSUME(YearDirective);
+    this.CONSUME(YearDirectiveValue);
+    this.OPTION(() => this.SUBRULE(this.inlineComment));
+    this.CONSUME(NEWLINE);
+    this.MANY(() => {
+      this.SUBRULE1(this.yearDirectiveContentLine);
+    });
+  });
+
+  public yearDirectiveContentLine = this.RULE(
+    'yearDirectiveContentLine',
+    () => {
+      this.CONSUME(INDENT);
+      this.SUBRULE(this.inlineComment);
+      this.CONSUME(NEWLINE);
+    }
+  );
 }
 
 const ParserInstance = new HLedgerParser();

@@ -24,8 +24,8 @@ export interface Journal {
  * Type for a single [hledger transaction](https://hledger.org/1.26/hledger.html#transactions)
  */
 export interface Transaction {
-  date: Core.SimpleDate;
-  postingDate?: Core.SimpleDate;
+  date: SimpleDate;
+  postingDate?: SimpleDate;
   status: Core.StatusIndicator;
   chequeNumber?: string;
   description: Core.TxnDescription;
@@ -51,7 +51,13 @@ export interface Account {
  * Type for a cooked [price directive](https://hledger.org/1.26/hledger.html#market-prices)
  */
 export interface Price {
-  date: Core.SimpleDate;
+  date: SimpleDate;
   commodity: string;
   price: Core.Amount;
+}
+
+export interface SimpleDate {
+  year: number;
+  month: number;
+  day: number;
 }

@@ -60,6 +60,11 @@ class HledgerToRawVisitor extends BaseCstVisitor {
         type: 'multilineComment',
         value: this.multilineComment(ctx.multilineComment[0].children)
       };
+    } else if (ctx.yearDirective) {
+      return {
+        type: 'yearDirective',
+        value: this.yearDirective(ctx.yearDirective[0].children)
+      };
     } else {
       return null;
     }
@@ -498,6 +503,35 @@ class HledgerToRawVisitor extends BaseCstVisitor {
     if (ctx.MultilineCommentText) return ctx.MultilineCommentText[0].image;
 
     return '';
+  }
+
+  yearDirective(
+    ctx: ParserTypes.YearDirectiveCstChildren
+  ): Raw.YearDirective['value'] {
+    const comments = ctx.inlineComment
+      ? this.inlineComment(ctx.inlineComment[0].children)
+      : undefined;
+    const contentLines =
+      ctx.yearDirectiveContentLine?.map((c) =>
+        this.yearDirectiveContentLine(c.children)
+      ) ?? [];
+
+    return {
+      year: ctx.YearDirectiveValue[0].image,
+      comments,
+      contentLines
+    };
+  }
+
+  yearDirectiveContentLine(
+    ctx: ParserTypes.YearDirectiveContentLineCstChildren
+  ): Raw.YearDirectiveContentLine {
+    return {
+      type: 'yearDirectiveContentLine',
+      value: {
+        inlineComment: this.inlineComment(ctx.inlineComment[0].children)
+      }
+    };
   }
 }
 

@@ -293,6 +293,16 @@
             "type": "Alternative",
             "definition": [
               {
+                "type": "NonTerminal",
+                "name": "yearDirective",
+                "idx": 0
+              }
+            ]
+          },
+          {
+            "type": "Alternative",
+            "definition": [
+              {
                 "type": "Terminal",
                 "name": "NEWLINE",
                 "label": "NEWLINE",
@@ -1833,6 +1843,80 @@
             ]
           }
         ]
+      }
+    ]
+  },
+  {
+    "type": "Rule",
+    "name": "yearDirective",
+    "orgText": "",
+    "definition": [
+      {
+        "type": "Terminal",
+        "name": "YearDirective",
+        "label": "YearDirective",
+        "idx": 0
+      },
+      {
+        "type": "Terminal",
+        "name": "YearDirectiveValue",
+        "label": "YearDirectiveValue",
+        "idx": 0,
+        "pattern": "\\d{4,5}(?=\\s+)"
+      },
+      {
+        "type": "Option",
+        "idx": 0,
+        "definition": [
+          {
+            "type": "NonTerminal",
+            "name": "inlineComment",
+            "idx": 0
+          }
+        ]
+      },
+      {
+        "type": "Terminal",
+        "name": "NEWLINE",
+        "label": "NEWLINE",
+        "idx": 0,
+        "pattern": "(\\r\\n|\\r|\\n)"
+      },
+      {
+        "type": "Repetition",
+        "idx": 0,
+        "definition": [
+          {
+            "type": "NonTerminal",
+            "name": "yearDirectiveContentLine",
+            "idx": 1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "Rule",
+    "name": "yearDirectiveContentLine",
+    "orgText": "",
+    "definition": [
+      {
+        "type": "Terminal",
+        "name": "INDENT",
+        "label": "INDENT",
+        "idx": 0
+      },
+      {
+        "type": "NonTerminal",
+        "name": "inlineComment",
+        "idx": 0
+      },
+      {
+        "type": "Terminal",
+        "name": "NEWLINE",
+        "label": "NEWLINE",
+        "idx": 0,
+        "pattern": "(\\r\\n|\\r|\\n)"
       }
     ]
   }

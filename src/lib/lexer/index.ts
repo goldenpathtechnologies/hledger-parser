@@ -15,7 +15,8 @@ import {
   posting_mode,
   price_amounts_mode,
   price_mode,
-  txn_line_mode
+  txn_line_mode,
+  year_mode
 } from './modes';
 
 export const tokenModeDefinitions = {
@@ -33,6 +34,7 @@ export const tokenModeDefinitions = {
     price_mode,
     price_amounts_mode,
     memo_mode,
+    year_mode,
     multiline_comment_mode,
     default_mode
   },

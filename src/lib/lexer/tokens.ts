@@ -234,7 +234,7 @@ export const ParenValue = createToken({
 
 export const Text = createToken({
   name: 'Text',
-  pattern: /[^|;\r\n]+/ ///[a-zA-Z_][a-zA-Z _]*[a-zA-Z_]/
+  pattern: /[^|;\r\n]+/
 });
 
 export const PIPE = createToken({
@@ -317,4 +317,18 @@ export const MultilineCommentEnd = createToken({
   pattern: matchOnlyAtStart(/end comment/y, 'MC_NEWLINE'),
   line_breaks: false,
   push_mode: 'default_mode'
+});
+
+// ====- Year Directive Tokens -====
+
+export const YearDirective = createToken({
+  name: 'YearDirective',
+  pattern: matchOnlyAtStart(/(Y|year|apply year)/y),
+  line_breaks: false,
+  push_mode: 'year_mode'
+});
+
+export const YearDirectiveValue = createToken({
+  name: 'YearDirectiveValue',
+  pattern: /\d{4,5}(?=\s+)/
 });

@@ -45,7 +45,9 @@ import {
   Text,
   TxnStatusIndicator,
   VirtualAccountName,
-  VirtualBalancedAccountName
+  VirtualBalancedAccountName,
+  YearDirective,
+  YearDirectiveValue
 } from './tokens';
 
 export const default_mode = [
@@ -54,6 +56,7 @@ export const default_mode = [
   PDirective,
   CommodityDirective,
   DefaultCommodityDirective,
+  YearDirective,
   MultilineComment,
   INDENT,
   SEMICOLON_AT_START,
@@ -172,4 +175,11 @@ export const multiline_comment_mode = [
   MC_NEWLINE,
   MultilineCommentEnd,
   MultilineCommentText
+];
+
+export const year_mode = [
+  NEWLINE,
+  SINGLE_WS,
+  SemicolonComment,
+  YearDirectiveValue
 ];

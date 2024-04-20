@@ -14,7 +14,7 @@ test('parses a transaction with a date', (t) => {
   );
   t.deepEqual(
     result.transactions[0].date,
-    { year: '1900', month: '01', day: '02', delimiter: '/' },
+    { year: 1900, month: 1, day: 2 },
     'should have parsed date'
   );
 });
@@ -30,7 +30,7 @@ test('parses a transaction with a posting date', (t) => {
   );
   t.deepEqual(
     result.transactions[0].postingDate,
-    { year: '2020', month: '01', day: '02', delimiter: '/' },
+    { year: 2020, month: 1, day: 2 },
     'should have parsed posting date'
   );
 });

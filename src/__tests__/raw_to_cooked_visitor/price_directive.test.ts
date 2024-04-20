@@ -11,7 +11,7 @@ test('parses a price directive', (t) => {
   t.deepEqual(
     result.prices[0],
     {
-      date: { year: '1900', month: '01', day: '01', delimiter: '/' },
+      date: { year: 1900, month: 1, day: 1 },
       commodity: '$',
       price: {
         number: '10',

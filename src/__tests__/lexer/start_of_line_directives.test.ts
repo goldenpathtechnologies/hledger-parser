@@ -1,14 +1,12 @@
 import test from 'ava';
 
-import { runLexerTests } from './utils';
+import { macro } from './utils';
 
-const tests = [
-  {
-    pattern: 'An Account:Test',
-    expected: [],
-    title: `reject a line starting with anything other than date, indent, ;, #, *, 'account', or 'P'`
-  }
-  // TODO: Write tests for each start of line directive.
-];
+test(
+  "reject a line starting with anything other than date, indent, ;, #, *, 'account', or 'P'",
+  macro,
+  'An Account:Test',
+  []
+);
 
-runLexerTests(test, tests);
+// TODO: Write tests for each start of line directive.

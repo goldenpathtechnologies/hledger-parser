@@ -91,6 +91,19 @@ export type PriceDirectiveCstChildren = {
   SimpleDate: IToken[];
   PDirectiveCommodityText: IToken[];
   amount: AmountCstNode[];
+  inlineComment?: InlineCommentCstNode[];
+  NEWLINE: IToken[];
+  priceDirectiveContentLine?: PriceDirectiveContentLineCstNode[];
+};
+
+export interface PriceDirectiveContentLineCstNode extends CstNode {
+  name: "priceDirectiveContentLine";
+  children: PriceDirectiveContentLineCstChildren;
+}
+
+export type PriceDirectiveContentLineCstChildren = {
+  INDENT: IToken[];
+  inlineComment: InlineCommentCstNode[];
   NEWLINE: IToken[];
 };
 
@@ -380,6 +393,7 @@ export interface ICstNodeVisitor<IN, OUT> extends ICstVisitor<IN, OUT> {
   journalItem(children: JournalItemCstChildren, param?: IN): OUT;
   transaction(children: TransactionCstChildren, param?: IN): OUT;
   priceDirective(children: PriceDirectiveCstChildren, param?: IN): OUT;
+  priceDirectiveContentLine(children: PriceDirectiveContentLineCstChildren, param?: IN): OUT;
   accountDirective(children: AccountDirectiveCstChildren, param?: IN): OUT;
   accountDirectiveContentLine(children: AccountDirectiveContentLineCstChildren, param?: IN): OUT;
   transactionInitLine(children: TransactionInitLineCstChildren, param?: IN): OUT;

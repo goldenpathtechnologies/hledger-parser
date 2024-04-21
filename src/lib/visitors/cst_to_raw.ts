@@ -121,11 +121,30 @@ class HledgerToRawVisitor extends BaseCstVisitor {
   priceDirective(
     ctx: ParserTypes.PriceDirectiveCstChildren
   ): Raw.PriceDirective['value'] {
+    const contentLines = ctx.priceDirectiveContentLine
+      ?.map((p) => this.priceDirectiveContentLine(p.children))
+      ?.filter(notEmpty);
+
     return {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       date: toSimpleDate(ctx.SimpleDate[0].image)!,
       commodity: ctx.PDirectiveCommodityText[0].payload as string,
-      price: this.amount(ctx.amount[0].children)
+      price: this.amount(ctx.amount[0].children),
+      comments: ctx.inlineComment
+        ? this.inlineComment(ctx.inlineComment[0].children)
+        : undefined,
+      contentLines: contentLines ?? []
+    };
+  }
+
+  priceDirectiveContentLine(
+    ctx: ParserTypes.PriceDirectiveContentLineCstChildren
+  ): Raw.PriceDirectiveContentLine {
+    return {
+      type: 'priceDirectiveContentLine',
+      value: {
+        inlineComment: this.inlineComment(ctx.inlineComment[0].children)
+      }
     };
   }
 

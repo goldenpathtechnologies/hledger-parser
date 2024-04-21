@@ -140,3 +140,20 @@ test(
   'p 1900/01/01 USD -$1',
   []
 );
+
+test(
+  'recognizes an inline comment',
+  macro,
+  'P 2024.01.03 USD $1.37 ; comment\n',
+  [
+    'PDirective',
+    'SimpleDate',
+    { PDirectiveCommodityText: 'USD' },
+    { CommodityText: '$' },
+    'Number',
+    'AMOUNT_WS',
+    'SemicolonComment',
+    'InlineCommentText',
+    'NEWLINE'
+  ]
+);

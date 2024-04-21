@@ -103,6 +103,19 @@ export interface PriceDirective {
     date: Core.SimpleDate;
     commodity: string;
     price: Core.Amount;
+    comments?: InlineComment;
+    contentLines: PriceDirectiveContentLine[];
+  };
+}
+
+/**
+ * Type for a [price directive](https://hledger.org/1.26/hledger.html#declaring-market-prices)
+ * content line, which can only be an inline comment at present.
+ */
+export interface PriceDirectiveContentLine {
+  type: 'priceDirectiveContentLine';
+  value: {
+    inlineComment: InlineComment;
   };
 }
 

@@ -146,7 +146,8 @@ export const price_amounts_mode = [
   JournalNumber,
   CommodityText,
   DASH,
-  PLUS
+  PLUS,
+  SemicolonComment
 ];
 
 export const memo_mode = [SemicolonComment, NEWLINE, Memo];

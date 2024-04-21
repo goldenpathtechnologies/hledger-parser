@@ -110,9 +110,7 @@ class HLedgerParser extends CstParser {
 
   public transaction = this.RULE('transaction', () => {
     this.SUBRULE(this.transactionInitLine);
-    this.MANY(() => {
-      this.SUBRULE(this.transactionContentLine);
-    });
+    this.MANY(() => this.SUBRULE(this.transactionContentLine));
   });
 
   public priceDirective = this.RULE('priceDirective', () => {
@@ -120,8 +118,19 @@ class HLedgerParser extends CstParser {
     this.CONSUME(SimpleDate);
     this.CONSUME(PDirectiveCommodityText);
     this.SUBRULE(this.amount);
-    this.CONSUME(NEWLINE); // TODO: There is support for inline comments prior to NEWLINE.
+    this.OPTION(() => this.SUBRULE(this.inlineComment));
+    this.CONSUME(NEWLINE);
+    this.MANY(() => this.SUBRULE(this.priceDirectiveContentLine));
   });
+
+  public priceDirectiveContentLine = this.RULE(
+    'priceDirectiveContentLine',
+    () => {
+      this.CONSUME(INDENT);
+      this.SUBRULE(this.inlineComment);
+      this.CONSUME(NEWLINE);
+    }
+  );
 
   public accountDirective = this.RULE('accountDirective', () => {
     this.CONSUME(AccountDirective);

@@ -1,3 +1,11 @@
+## [2.3.0](https://github.com/goldenpathtechnologies/hledger-parser/compare/v2.2.0...v2.3.0) (2024-04-21)
+
+
+### Features
+
+* implemented the year (Y) directive ([1414277](https://github.com/goldenpathtechnologies/hledger-parser/commit/1414277b1a12d0d5c468939a01eb409138a1d4fd)), closes [#13](https://github.com/goldenpathtechnologies/hledger-parser/issues/13)
+* support for inline and subdirective comments for price directives ([7c0976d](https://github.com/goldenpathtechnologies/hledger-parser/commit/7c0976de052c8ae056d9016636a437532888b8f2)), closes [#25](https://github.com/goldenpathtechnologies/hledger-parser/issues/25)
+
 ## [2.2.0](https://github.com/goldenpathtechnologies/hledger-parser/compare/v2.1.0...v2.2.0) (2024-04-16)
 
 
